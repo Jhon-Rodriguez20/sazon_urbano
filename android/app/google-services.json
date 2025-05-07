@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "949588837684",
+    "project_id": "sazonurbano-243a4",
+    "storage_bucket": "sazonurbano-243a4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:949588837684:android:447bca1abd5bb749ea1161",
+        "android_client_info": {
+          "package_name": "com.example.sazon_urbano"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTRh4nMKosLq61az960nkt5V9DCF3Y1so"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
