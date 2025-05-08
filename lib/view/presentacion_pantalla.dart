@@ -33,7 +33,6 @@ class _PresentacionPantallaState extends State<PresentacionPantalla> {
     ),
   ];
 
-  // handle get started button pressed
   void _handleGetStarted() {
     final AutenticacionControlador autenticacionControlador = Get.find<AutenticacionControlador>();
     autenticacionControlador.setFirstTimeDone();
@@ -117,7 +116,7 @@ class _PresentacionPantallaState extends State<PresentacionPantalla> {
               TextButton(
                 onPressed: () => _handleGetStarted(),
                 child: Text(
-                  "Skip",
+                  "Saltar",
                   style: AppEstilosTexto.withColor(
                     AppEstilosTexto.buttonMedium,
                     isDark? Colors.grey[400]! : Colors.grey[600]!,
@@ -145,7 +144,7 @@ class _PresentacionPantallaState extends State<PresentacionPantalla> {
                 ),
               ),
               child: Text(
-                _currentPage < _items.length - 1 ? 'Next' : 'Get Started',
+                _currentPage < _items.length - 1 ? 'Siguiente' : 'Empezar',
                 style: AppEstilosTexto.withColor(
                   AppEstilosTexto.buttonMedium,
                   Colors.white),

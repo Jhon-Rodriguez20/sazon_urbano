@@ -8,19 +8,20 @@ import 'package:sazon_urbano/utils/app_temas.dart';
 import 'package:sazon_urbano/view/bienvenida_pantalla.dart';
 
 // IMPORTANTE para Firebase
-// import 'package:firebase_core/firebase_core.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart'; // Importa Firestore
-// import 'firebase_options.dart'; // este archivo lo genera FlutterFire CLI
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart'; // Este archivo lo genera FlutterFire CLI
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized(); // Necesario para inicializar Firebase antes de runApp
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
-  // Inicializar GetStorage y Controladores
   await GetStorage.init();
   Get.put(TemaControlador());
   Get.put(AutenticacionControlador());
   Get.put(NavegacionControlador());
 
-  // Correr la aplicación
   runApp(const MyApp());
 }
 
@@ -41,20 +42,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-// void pruebaFirestore() async {
-//   try {
-//     // Conectar con Firestore
-//     FirebaseFirestore firestore = FirebaseFirestore.instance;
-
-//     // Crear un documento de prueba
-//     await firestore.collection('test_collection').add({
-//       'test_field': 'Test data from Flutter',
-//       'timestamp': FieldValue.serverTimestamp(),
-//     });
-
-//     print("Datos enviados a Firestore con éxito!");
-//   } catch (e) {
-//     print("Error escribiendo en Firestore: $e");
-//   }
-// }
