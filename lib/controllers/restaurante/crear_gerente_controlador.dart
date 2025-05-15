@@ -1,16 +1,16 @@
 import 'package:get/get.dart';
 import 'package:sazon_urbano/DB/repositories/auth/crear_cuenta_repositorio.dart';
-import 'package:sazon_urbano/view/iniciar_sesion_pantalla.dart';
+import 'package:sazon_urbano/view/home_pantalla.dart';
 import 'package:sazon_urbano/view/widgets/snacbar_personalizado.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class UsuarioControlador extends GetxController {
+class CrearGerenteControlador extends GetxController {
   final UsuarioRepositorio _usuarioRepositorio = UsuarioRepositorio();
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   var cargando = false.obs;
 
-  Future<void> crearCuenta({
+  Future<void> crearGerente({
     required String nombre,
     required String celular,
     required String email,
@@ -19,11 +19,11 @@ class UsuarioControlador extends GetxController {
     required String urlImagen,
     required String idRol,
     String? idGerente,
+    
   }) async {
     try {
       cargando.value = true;
 
-      // Verificar si ya existe un usuario con ese email en Firestore
       final existeUsuario = await _usuarioRepositorio.existeUsuarioConEmail(email);
       if (existeUsuario) {
         cargando.value = false;
@@ -31,7 +31,6 @@ class UsuarioControlador extends GetxController {
         return;
       }
 
-      // Crear usuario en FirebaseAuth
       final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
@@ -44,10 +43,8 @@ class UsuarioControlador extends GetxController {
         return;
       }
 
-      // Si ocupacion no se pasó, se pone 'Cliente'
-      final ocupacionFinal = (ocupacion?.trim().isEmpty ?? true) ? 'Cliente' : ocupacion!.trim();
+      final ocupacionFinal = (ocupacion?.trim().isEmpty ?? true) ? 'Gerente' : ocupacion!.trim();
 
-      // Crear usuario en Firestore usando el UID de FirebaseAuth
       await _usuarioRepositorio.crearUsuario(
         idUsuario: uid,
         nombre: nombre,
@@ -60,8 +57,8 @@ class UsuarioControlador extends GetxController {
       );
 
       cargando.value = false;
-      SnackbarPersonalizado.mostrarExito('Cuenta creada correctamente');
-      Get.offAll(() => IniciarSesionPantalla());
+      SnackbarPersonalizado.mostrarExito('Gerente creado con éxito');
+      Get.to(() => HomePantalla());
 
     } on FirebaseAuthException catch (e) {
       cargando.value = false;

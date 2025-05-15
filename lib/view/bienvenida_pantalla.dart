@@ -77,7 +77,7 @@ class BienvenidaPantalla extends StatelessWidget {
                               ),
                             ],
                           ),
-                          child: Icon(Icons.shopping_basket_outlined,
+                          child: Icon(Icons.restaurant_menu_outlined,
                           size: 70,
                           color: Theme.of(context).primaryColor,
                           ),
@@ -140,13 +140,13 @@ class BienvenidaPantalla extends StatelessWidget {
                       );
                   },
                 child: Text(
-                  'Un lugar para conocer las comidas típicas de la ciudad',
+                  'Gastronomía local: un viaje de amor y sabor.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white.withValues(),
-                    fontSize: 14,
+                    fontSize: 16,
                     letterSpacing: 2,
-                    fontWeight: FontWeight.w300,
+                    fontWeight: FontWeight.bold,
 
                   ),
                 ),

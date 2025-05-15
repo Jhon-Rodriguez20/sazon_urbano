@@ -35,8 +35,7 @@ class AutenticacionControlador extends GetxController {
       _authRepositorio.guardarInicioSesion();
       _esLogueado.value = true;
       return true;
-    } on FirebaseAuthException catch (e) {
-      print('Error de login: ${e.message}');
+    } on FirebaseAuthException {
       return false;
     }
   }
@@ -45,8 +44,7 @@ class AutenticacionControlador extends GetxController {
     try {
       await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
       return true;
-    } on FirebaseAuthException catch (e) {
-      print('Error de registro: ${e.message}');
+    } on FirebaseAuthException {
       return false;
     }
   }

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sazon_urbano/controllers/auth/crear_cuenta_controlador.dart';
+import 'package:sazon_urbano/controllers/restaurante/crear_gerente_controlador.dart';
 import 'package:sazon_urbano/utils/app_estilos_texto.dart';
-import 'package:sazon_urbano/view/iniciar_sesion_pantalla.dart';
 import 'package:sazon_urbano/view/widgets/formulario_personalizado.dart';
-class CrearCuentaPantalla extends StatefulWidget {
-  const CrearCuentaPantalla({super.key});
+
+class CrearGerentePantalla extends StatefulWidget {
+  const CrearGerentePantalla({super.key});
 
   @override
-  State<CrearCuentaPantalla> createState() => _CrearCuentaPantallaState();
+  State<CrearGerentePantalla> createState() => _CrearGerentePantallaState();
 }
 
-class _CrearCuentaPantallaState extends State<CrearCuentaPantalla> {
+class _CrearGerentePantallaState extends State<CrearGerentePantalla> {
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _nameController = TextEditingController();
@@ -20,7 +20,7 @@ class _CrearCuentaPantallaState extends State<CrearCuentaPantalla> {
   final TextEditingController _confirmPasswordController = TextEditingController();
   final TextEditingController _celularController = TextEditingController();
 
-  final UsuarioControlador _usuarioControlador = Get.put(UsuarioControlador());
+  final CrearGerenteControlador _crearGerenteControlador = Get.put(CrearGerenteControlador());
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class _CrearCuentaPantallaState extends State<CrearCuentaPantalla> {
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  'Crear Cuenta',
+                  'Crear Gerente',
                   style: AppEstilosTexto.withColor(
                     AppEstilosTexto.h1,
                     Theme.of(context).textTheme.bodyLarge!.color!,
@@ -53,7 +53,7 @@ class _CrearCuentaPantallaState extends State<CrearCuentaPantalla> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'Crea una cuenta para empezar',
+                  'Crea un gerente para un restaurante',
                   style: AppEstilosTexto.withColor(
                     AppEstilosTexto.bodyLarge,
                     isDark ? Colors.grey[400]! : Colors.grey[600]!,
@@ -67,7 +67,7 @@ class _CrearCuentaPantallaState extends State<CrearCuentaPantalla> {
                   keyboardType: TextInputType.name,
                   controller: _nameController,
                   validator: (value) {
-                    if (value == null || value.isEmpty) return 'Por favor ingrese su nombre';
+                    if (value == null || value.isEmpty) return 'Por favor ingrese el nombre';
                     return null;
                   },
                 ),
@@ -78,7 +78,7 @@ class _CrearCuentaPantallaState extends State<CrearCuentaPantalla> {
                   keyboardType: TextInputType.phone,
                   controller: _celularController,
                   validator: (value) {
-                    if (value == null || value.isEmpty) return 'Por favor ingrese su número';
+                    if (value == null || value.isEmpty) return 'Por favor ingrese el número';
                     return null;
                   },
                 ),
@@ -102,7 +102,7 @@ class _CrearCuentaPantallaState extends State<CrearCuentaPantalla> {
                   isPassword: true,
                   controller: _passwordController,
                   validator: (value) {
-                    if (value == null || value.isEmpty) return 'Por favor ingrese su contraseña';
+                    if (value == null || value.isEmpty) return 'Por favor ingrese la contraseña';
                     if (value.length < 6) return 'La contraseña debe tener al menos 6 caracteres';
                     return null;
                   },
@@ -115,7 +115,7 @@ class _CrearCuentaPantallaState extends State<CrearCuentaPantalla> {
                   isPassword: true,
                   controller: _confirmPasswordController,
                   validator: (value) {
-                    if (value == null || value.isEmpty) return 'Por favor confirme su contraseña';
+                    if (value == null || value.isEmpty) return 'Por favor confirme la contraseña';
                     if (value != _passwordController.text) return 'Las contraseñas no coinciden';
                     return null;
                   },
@@ -129,14 +129,14 @@ class _CrearCuentaPantallaState extends State<CrearCuentaPantalla> {
                       if (!_formKey.currentState!.validate()) return;
 
                       try {
-                        await _usuarioControlador.crearCuenta(
+                        await _crearGerenteControlador.crearGerente(
                           nombre: _nameController.text.trim(),
                           celular: _celularController.text.trim(),
                           email: _emailController.text.trim(),
-                          ocupacion: 'Cliente',
+                          ocupacion: 'Gerente',
                           password: _passwordController.text.trim(),
                           urlImagen: '',
-                          idRol: '4',
+                          idRol: '2',
                         );
                       } catch (e) {
                         Get.snackbar('Error', e.toString());
@@ -149,10 +149,10 @@ class _CrearCuentaPantallaState extends State<CrearCuentaPantalla> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
-                    child: _usuarioControlador.cargando.value
+                    child: _crearGerenteControlador.cargando.value
                       ? const CircularProgressIndicator(color: Colors.white)
                       : Text(
-                          'Crear Cuenta',
+                          'Crear Gerente',
                           style: AppEstilosTexto.withColor(
                             AppEstilosTexto.buttonMedium,
                             Colors.white,
@@ -161,29 +161,6 @@ class _CrearCuentaPantallaState extends State<CrearCuentaPantalla> {
                   )),
                 ),
                 const SizedBox(height: 24),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      '¿Ya tienes una cuenta?',
-                      style: AppEstilosTexto.withColor(
-                        AppEstilosTexto.bodyMedium,
-                        isDark ? Colors.grey[400]! : Colors.grey[600]!,
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () => Get.off(() => IniciarSesionPantalla()),
-                      child: Text(
-                        'Iniciar Sesión',
-                        style: AppEstilosTexto.withColor(
-                          AppEstilosTexto.buttonMedium,
-                          Theme.of(context).primaryColor,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
               ],
             ),
           ),

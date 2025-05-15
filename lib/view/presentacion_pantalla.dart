@@ -17,19 +17,14 @@ class _PresentacionPantallaState extends State<PresentacionPantalla> {
 
   final List<OnboardingItem> _items = [
     OnboardingItem(
-      description: 'Explore the newest fashion trends and find your unique style',
-      title: 'Discover Latest Trends',
-      image: 'assets/images/intro.png'
+      title: 'Platillos Típicos',
+      description: 'Descubre los sabores auténticos de nuestra cultura con los mejores platillos tradicionales.',
+      image: 'assets/images/intro.png',
     ),
     OnboardingItem(
-      description: 'Shop premium quality products from top brands worldwide',
-      title: 'Quality Products',
-      image: 'assets/images/intro1.png'
-    ),
-    OnboardingItem(
-      description: 'Simple and secure shopping experience at your fingertips',
-      title: 'Easy Shopping',
-      image: 'assets/images/intro2.png'
+      title: 'Restaurantes Nativos',
+      description: 'Apoya lo local disfrutando de comidas únicas preparadas por restaurantes auténticos de la región.',
+      image: 'assets/images/intro1.png',
     ),
   ];
 

@@ -4,7 +4,7 @@ class UsuarioRepositorio {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<void> crearUsuario({
-    required String idUsuario, // <-- ahora recibe el uid de FirebaseAuth
+    required String idUsuario,
     required String nombre,
     required String celular,
     required String email,
@@ -21,7 +21,7 @@ class UsuarioRepositorio {
         'email': email,
         'urlImagen': urlImagen,
         'idRol': idRol,
-        'fechaCreacion': FieldValue.serverTimestamp(), // <-- agrego fecha si quieres
+        'fechaCreacion': FieldValue.serverTimestamp(),
       };
 
       if (ocupacion != null && ocupacion.trim().isNotEmpty) {
@@ -34,7 +34,6 @@ class UsuarioRepositorio {
       await _firestore.collection('usuarios').doc(idUsuario).set(data);
 
     } catch (e) {
-      print('Error detallado al crear usuario: $e');
       throw Exception('Error al crear usuario: $e');
     }
   }
