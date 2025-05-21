@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sazon_urbano/controllers/auth/autenticacion_controlador.dart';
@@ -5,13 +7,14 @@ import 'package:sazon_urbano/utils/app_estilos_texto.dart';
 import 'package:sazon_urbano/view/configuracion_pantalla.dart';
 import 'package:sazon_urbano/view/iniciar_sesion_pantalla.dart';
 import 'package:sazon_urbano/view/mi%20cuenta/editar_perfil_pantalla.dart';
+import 'package:sazon_urbano/view/restaurante/mis_restaurantes_pantalla.dart';
+import 'package:sazon_urbano/widgets/editar%20perfil/avatar_usuario.dart';
 
 class MiCuentaPantalla extends StatelessWidget {
   const MiCuentaPantalla({super.key});
 
   @override
   Widget build(BuildContext context) {
-    //final screenSize = MediaQuery.of(context).size;
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
@@ -45,67 +48,90 @@ class MiCuentaPantalla extends StatelessWidget {
 
   Widget _buildProfileSection(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final user = FirebaseAuth.instance.currentUser;
 
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        color: isDark ? Colors.grey[850] : Colors.grey[100],
-        borderRadius: BorderRadius.vertical(bottom: Radius.circular(24),),
-      ),
-      child: Column(
-        children: [
-          CircleAvatar(
-            radius: 50,
-            backgroundImage: AssetImage('assets/images/avatar.jpg'),
+    if (user == null) {
+      return Center(child: Text('Usuario no autenticado'));
+    }
+
+    return FutureBuilder<DocumentSnapshot>(
+      future: FirebaseFirestore.instance.collection('usuarios').doc(user.uid).get(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Padding(
+            padding: EdgeInsets.all(24),
+            child: Center(child: CircularProgressIndicator()),
+          );
+        }
+
+        if (!snapshot.hasData || !snapshot.data!.exists) {
+          return Padding(
+            padding: EdgeInsets.all(24),
+            child: Center(child: Text('No se encontró el perfil del usuario')),
+          );
+        }
+
+        final userData = snapshot.data!.data() as Map<String, dynamic>;
+        final nombre = userData['nombre'] ?? 'Sin Nombre';
+        final email = userData['email'] ?? user.email ?? 'Correo no disponible';
+
+        return Container(
+          width: double.infinity,
+          padding: EdgeInsets.all(24),
+          decoration: BoxDecoration(
+            color: isDark ? Colors.grey[850] : Colors.grey[100],
+            borderRadius: BorderRadius.vertical(bottom: Radius.circular(24)),
           ),
-          SizedBox(height: 16),
-          Text(
-            'Alexander Rodríguez',
-            style: AppEstilosTexto.withColor(
-              AppEstilosTexto.h2,
-              Theme.of(context).textTheme.bodyLarge!.color!
-            ),
-          ),
-          SizedBox(height: 4),
-          Text(
-            'developjarz@gmail.com',
-            style: AppEstilosTexto.withColor(
-              AppEstilosTexto.bodyMedium,
-              isDark ? Colors.grey[400]! : Colors.grey[600]!,
-            ),
-          ),
-          SizedBox(height: 16),
-          OutlinedButton(
-            onPressed: () => Get.to(() => EditarPerfilPantalla()),
-            style: OutlinedButton.styleFrom(
-              padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-              side: BorderSide(
-                color: isDark ? Colors.white70 : Colors.black12,
+          child: Column(
+            children: [
+              AvatarUsuario(radius: 50),
+              SizedBox(height: 16),
+              Text(
+                nombre,
+                style: AppEstilosTexto.withColor(
+                  AppEstilosTexto.h2,
+                  Theme.of(context).textTheme.bodyLarge!.color!,
+                ),
               ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
+              SizedBox(height: 4),
+              Text(
+                email,
+                style: AppEstilosTexto.withColor(
+                  AppEstilosTexto.bodyMedium,
+                  isDark ? Colors.grey[400]! : Colors.grey[600]!,
+                ),
               ),
-            ),
-            child: Text(
-              'Editar Perfil',
-              style: AppEstilosTexto.withColor(
-                AppEstilosTexto.bodyMedium,
-                Theme.of(context).textTheme.bodyLarge!.color!,
+              SizedBox(height: 16),
+              OutlinedButton(
+                onPressed: () => Get.to(() => EditarPerfilPantalla()),
+                style: OutlinedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                  side: BorderSide(
+                    color: isDark ? Colors.white70 : Colors.black12,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                child: Text(
+                  'Editar Perfil',
+                  style: AppEstilosTexto.withColor(
+                    AppEstilosTexto.bodyMedium,
+                    Theme.of(context).textTheme.bodyLarge!.color!,
+                  ),
+                ),
               ),
-            ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 
   Widget _buildMenuSection(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final menuItems = [
-      {'icon': Icons.shopping_bag_outlined, 'title': 'Mis Pedidos'},
-      {'icon': Icons.location_on_outlined, 'title': 'Mis Restaurantes'},
-      {'icon': Icons.location_on_outlined, 'title': 'Mis Empleados'},
+      {'icon': Icons.store, 'title': 'Mis Restaurantes'},
       {'icon': Icons.help_outline, 'title': 'Centro de Ayuda'},
       {'icon': Icons.logout_outlined, 'title': 'Cerrar Sesion'},
     ];
@@ -147,11 +173,9 @@ class MiCuentaPantalla extends StatelessWidget {
                 if(item['title'] == 'Cerrar Sesion') {
                   _showLogoutDialog(context);
                 } 
-                //else if (item['title'] == 'Mis pedidos') {
-                //   Get.to(()=> MyOrdersScreen());
-                // } else if (item['title'] == 'Centro de Ayuda') {
-                //   Get.to(()=> HelpCenterScreen());
-                // }
+                else if (item['title'] == 'Mis Restaurantes') {
+                  Get.to(()=> MisRestaurantesPantalla());
+                }
               },
             ),
           );

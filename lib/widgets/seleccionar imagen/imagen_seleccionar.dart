@@ -4,21 +4,21 @@ import 'package:get/get.dart';
 import 'package:sazon_urbano/utils/app_estilos_texto.dart';
 import 'package:sazon_urbano/utils/imagen_picker.dart';
 
-class PerfilImagen extends StatefulWidget {
+class ImagenSeleccionar extends StatefulWidget {
   final void Function(File?) onImageSelected;
   final File? imagenSeleccionada;
 
-  const PerfilImagen({
+  const ImagenSeleccionar({
     super.key,
     required this.onImageSelected,
     this.imagenSeleccionada,
   });
 
   @override
-  State<PerfilImagen> createState() => _PerfilImagenState();
+  State<ImagenSeleccionar> createState() => _ImagenSeleccionarState();
 }
 
-class _PerfilImagenState extends State<PerfilImagen> {
+class _ImagenSeleccionarState extends State<ImagenSeleccionar> {
   File? _imagen;
 
   @override

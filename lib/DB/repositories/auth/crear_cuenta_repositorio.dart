@@ -6,18 +6,17 @@ class UsuarioRepositorio {
   Future<void> crearUsuario({
     required String idUsuario,
     required String nombre,
-    required String celular,
     required String email,
     required String urlImagen,
     required String idRol,
     String? ocupacion,
     String? idGerente,
+    
   }) async {
     try {
       final Map<String, dynamic> data = {
         'idUsuario': idUsuario,
         'nombre': nombre,
-        'celular': celular,
         'email': email,
         'urlImagen': urlImagen,
         'idRol': idRol,

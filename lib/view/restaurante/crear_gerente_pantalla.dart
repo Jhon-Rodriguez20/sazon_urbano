@@ -18,7 +18,6 @@ class _CrearGerentePantallaState extends State<CrearGerentePantalla> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
-  final TextEditingController _celularController = TextEditingController();
 
   final CrearGerenteControlador _crearGerenteControlador = Get.put(CrearGerenteControlador());
 
@@ -73,17 +72,6 @@ class _CrearGerentePantallaState extends State<CrearGerentePantalla> {
                 ),
                 const SizedBox(height: 16),
                 FormularioPersonalizado(
-                  label: 'Celular',
-                  prefixIcon: Icons.phone_outlined,
-                  keyboardType: TextInputType.phone,
-                  controller: _celularController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) return 'Por favor ingrese el número';
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 16),
-                FormularioPersonalizado(
                   label: 'Correo',
                   prefixIcon: Icons.email_outlined,
                   keyboardType: TextInputType.emailAddress,
@@ -131,7 +119,6 @@ class _CrearGerentePantallaState extends State<CrearGerentePantalla> {
                       try {
                         await _crearGerenteControlador.crearGerente(
                           nombre: _nameController.text.trim(),
-                          celular: _celularController.text.trim(),
                           email: _emailController.text.trim(),
                           ocupacion: 'Gerente',
                           password: _passwordController.text.trim(),
@@ -175,7 +162,6 @@ class _CrearGerentePantallaState extends State<CrearGerentePantalla> {
     _emailController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
-    _celularController.dispose();
     super.dispose();
   }
 }

@@ -6,6 +6,7 @@ import 'package:sazon_urbano/security/seguridad_sesion.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sazon_urbano/view/restaurante/restaurante_grid.dart';
 import 'package:sazon_urbano/view/widgets/promocion_banner.dart';
+import 'package:sazon_urbano/widgets/editar%20perfil/avatar_usuario.dart';
 
 class HomePantalla extends StatefulWidget {
   const HomePantalla({super.key});
@@ -48,8 +49,8 @@ class _HomePantallaState extends State<HomePantalla> {
     }
 
     final nombreUsuario = usuario.displayName?.isNotEmpty == true
-        ? usuario.displayName
-        : usuario.email?.split('@').first ?? 'Usuario';
+      ? usuario.displayName
+      : usuario.email?.split('@').first ?? 'Usuario';
 
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -60,10 +61,7 @@ class _HomePantallaState extends State<HomePantalla> {
               padding: const EdgeInsets.all(16),
               child: Row(
                 children: [
-                  const CircleAvatar(
-                    radius: 20,
-                    backgroundImage: AssetImage('assets/images/avatar.jpg'),
-                  ),
+                  AvatarUsuario(radius: 20),
                   const SizedBox(width: 12),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

@@ -12,7 +12,6 @@ class UsuarioControlador extends GetxController {
 
   Future<void> crearCuenta({
     required String nombre,
-    required String celular,
     required String email,
     String? ocupacion,
     required String password,
@@ -51,7 +50,6 @@ class UsuarioControlador extends GetxController {
       await _usuarioRepositorio.crearUsuario(
         idUsuario: uid,
         nombre: nombre,
-        celular: celular,
         email: email,
         ocupacion: ocupacionFinal,
         urlImagen: urlImagen,

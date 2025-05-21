@@ -87,7 +87,6 @@ class BienvenidaPantalla extends StatelessWidget {
                     ),
                     const SizedBox(height: 32),
 
-                    // animated text
                     TweenAnimationBuilder<double>(
                     tween: Tween(begin: 0.0, end: 1.0),
                     duration: Duration(milliseconds: 1200),
@@ -102,7 +101,7 @@ class BienvenidaPantalla extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(
-                        "SAZÓN",
+                        "BOCADOS DE",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 32,
@@ -111,7 +110,7 @@ class BienvenidaPantalla extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        "URBANO",
+                        "TRADICIÓN",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 32,
@@ -127,27 +126,26 @@ class BienvenidaPantalla extends StatelessWidget {
               ),
             ),
             Positioned(
-                    bottom: 48,
-                    left: 0,
-                    right: 0,
-                    child: TweenAnimationBuilder<double>(
-                    tween: Tween(begin: 0.0, end: 1.0),
-                    duration: Duration(milliseconds: 1200),
-                    builder: (context, value, child){
-                      return Opacity(
-                        opacity: value,
-                        child: child,
-                      );
-                  },
+              bottom: 48,
+              left: 0,
+              right: 0,
+              child: TweenAnimationBuilder<double>(
+              tween: Tween(begin: 0.0, end: 1.0),
+              duration: Duration(milliseconds: 1200),
+              builder: (context, value, child){
+                return Opacity(
+                  opacity: value,
+                  child: child,
+                );
+              },
                 child: Text(
-                  'Gastronomía local: un viaje de amor y sabor.',
+                  'Bocados de tradición, donde la tradición cobra sabor',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white.withValues(),
                     fontSize: 16,
                     letterSpacing: 2,
-                    fontWeight: FontWeight.bold,
-
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
               ),

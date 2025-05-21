@@ -18,17 +18,13 @@ class NavbarPersonalizado extends StatelessWidget {
             label: 'Home'
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_bag_outlined),
+            icon: Icon(Icons.person_add),
             label: 'Crear Gerente'
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite_outline),
+            icon: Icon(Icons.restaurant),
             label: 'Crear Restaurante'
           ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.person_outline),
-          //   label: 'Ver Pedidos'
-          // ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_outline),
             label: 'Mi Cuenta'

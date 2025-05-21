@@ -7,7 +7,7 @@ import 'package:sazon_urbano/controllers/restaurante/restaurante_controlador.dar
 import 'package:sazon_urbano/DB/repositories/usuario/buscar_usuarios.dart';
 import 'package:sazon_urbano/utils/app_estilos_texto.dart';
 import 'package:sazon_urbano/view/widgets/formulario_personalizado.dart';
-import 'package:sazon_urbano/widgets/editar%20perfil/perfil_imagen.dart';
+import 'package:sazon_urbano/widgets/seleccionar%20imagen/imagen_seleccionar.dart';
 
 class CrearRestaurantePantalla extends StatefulWidget {
   const CrearRestaurantePantalla({super.key});
@@ -187,7 +187,7 @@ class _CrearRestaurantePantallaState extends State<CrearRestaurantePantalla> {
                 ),
                 const SizedBox(height: 24),
 
-                PerfilImagen(
+                ImagenSeleccionar(
                   imagenSeleccionada: _imagenSeleccionada,
                   onImageSelected: (File? img) {
                     _imagenSeleccionada = img;

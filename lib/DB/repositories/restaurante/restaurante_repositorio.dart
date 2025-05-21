@@ -39,8 +39,24 @@ class RestauranteRepositorio {
       return snapshot.docs.map((doc) {
         return Restaurante.fromMap(doc.data());
       }).toList();
+      
     } catch (e) {
       throw Exception('Error al obtener restaurantes: $e');
+    }
+  }
+
+  Future<List<Restaurante>> obtenerMisRestaurantes(String idGerente) async {
+    try {
+      final snapshot = await _firestore
+          .collection('restaurantes')
+          .where('idGerente', isEqualTo: idGerente)
+          .get();
+
+      return snapshot.docs.map((doc) {
+        return Restaurante.fromMap(doc.data());
+      }).toList();
+    } catch (e) {
+      throw Exception('Error al obtener restaurantes del gerente: $e');
     }
   }
 }

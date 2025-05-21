@@ -18,7 +18,6 @@ class _CrearCuentaPantallaState extends State<CrearCuentaPantalla> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
-  final TextEditingController _celularController = TextEditingController();
 
   final UsuarioControlador _usuarioControlador = Get.put(UsuarioControlador());
 
@@ -73,17 +72,6 @@ class _CrearCuentaPantallaState extends State<CrearCuentaPantalla> {
                 ),
                 const SizedBox(height: 16),
                 FormularioPersonalizado(
-                  label: 'Celular',
-                  prefixIcon: Icons.phone_outlined,
-                  keyboardType: TextInputType.phone,
-                  controller: _celularController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) return 'Por favor ingrese su número';
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 16),
-                FormularioPersonalizado(
                   label: 'Correo',
                   prefixIcon: Icons.email_outlined,
                   keyboardType: TextInputType.emailAddress,
@@ -131,12 +119,11 @@ class _CrearCuentaPantallaState extends State<CrearCuentaPantalla> {
                       try {
                         await _usuarioControlador.crearCuenta(
                           nombre: _nameController.text.trim(),
-                          celular: _celularController.text.trim(),
                           email: _emailController.text.trim(),
                           ocupacion: 'Cliente',
                           password: _passwordController.text.trim(),
                           urlImagen: '',
-                          idRol: '4',
+                          idRol: '3',
                         );
                       } catch (e) {
                         Get.snackbar('Error', e.toString());
@@ -198,7 +185,6 @@ class _CrearCuentaPantallaState extends State<CrearCuentaPantalla> {
     _emailController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
-    _celularController.dispose();
     super.dispose();
   }
 }

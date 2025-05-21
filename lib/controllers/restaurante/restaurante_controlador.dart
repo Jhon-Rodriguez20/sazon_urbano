@@ -71,4 +71,13 @@ class RestauranteControlador extends GetxController {
       throw('Error al cargar restaurantes: $e');
     }
   }
+
+  Future<void> cargarMisRestaurantes(String idGerente) async {
+    try {
+      final lista = await _restauranteRepositorio.obtenerMisRestaurantes(idGerente);
+      restaurantes.assignAll(lista);
+    } catch (e) {
+      throw('Error al cargar restaurantes del gerente: $e');
+    }
+  }
 }

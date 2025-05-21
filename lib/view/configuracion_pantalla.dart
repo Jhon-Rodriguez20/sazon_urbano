@@ -39,15 +39,6 @@ class ConfiguracionPantalla extends StatelessWidget {
                 _buildThemeToggle(context),
               ],
             ),
-            _buildSection(context, 'Notifications',
-            [
-              _buildSwitchTile(
-                context,
-                'Notificaciones',
-                'Recibe notificaciones para estar al tanto',
-                true,
-              ),
-            ],),
             _buildSection(context, 'Privacy', [
               _buildNavigationTile(
                 context,
@@ -118,7 +109,7 @@ class ConfiguracionPantalla extends StatelessWidget {
             color: Theme.of(context).primaryColor,
           ),
           title: Text(
-            'Modo Oscuro',
+            'Tema preferido',
             style: AppEstilosTexto.withColor(
               AppEstilosTexto.bodyMedium,
               Theme.of(context).textTheme.bodyLarge!.color!
@@ -129,46 +120,6 @@ class ConfiguracionPantalla extends StatelessWidget {
             onChanged: (value) => controller.elegirTema(),
             activeColor: Theme.of(context).primaryColor,
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSwitchTile(BuildContext context, String title, String subtitle, bool initialValue) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: isDark ? const Color.fromARGB(255, 39, 39, 39) : const Color.fromARGB(255, 237, 237, 237),
-            blurRadius: 8,
-            offset: Offset(0, 2),
-          ),
-        ],
-      ),
-      child: ListTile(
-        title: Text(
-          title,
-          style: AppEstilosTexto.withColor(
-            AppEstilosTexto.bodyMedium,
-            Theme.of(context).textTheme.bodyLarge!.color!
-          ),
-        ),
-        subtitle: Text(
-          subtitle,
-          style: AppEstilosTexto.withColor(
-            AppEstilosTexto.bodySmall,
-            isDark ? Colors.grey[400]! : Colors.grey[600]!,
-          ),
-        ),
-        trailing: Switch(
-          value: initialValue,
-          onChanged: (value) {},
-          activeColor: Theme.of(context).primaryColor,
         ),
       ),
     );

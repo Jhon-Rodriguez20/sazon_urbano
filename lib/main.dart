@@ -9,10 +9,10 @@ import 'package:sazon_urbano/view/bienvenida_pantalla.dart';
 
 // IMPORTANTE para Firebase
 import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart'; // Este archivo lo genera FlutterFire CLI
+import 'firebase_options.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized(); // Necesario para inicializar Firebase antes de runApp
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

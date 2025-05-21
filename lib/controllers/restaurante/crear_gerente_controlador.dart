@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:sazon_urbano/DB/repositories/auth/crear_cuenta_repositorio.dart';
-import 'package:sazon_urbano/view/home_pantalla.dart';
+import 'package:sazon_urbano/view/principal_pantalla.dart';
 import 'package:sazon_urbano/view/widgets/snacbar_personalizado.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -12,7 +12,6 @@ class CrearGerenteControlador extends GetxController {
 
   Future<void> crearGerente({
     required String nombre,
-    required String celular,
     required String email,
     String? ocupacion,
     required String password,
@@ -48,7 +47,6 @@ class CrearGerenteControlador extends GetxController {
       await _usuarioRepositorio.crearUsuario(
         idUsuario: uid,
         nombre: nombre,
-        celular: celular,
         email: email,
         ocupacion: ocupacionFinal,
         urlImagen: urlImagen,
@@ -58,7 +56,7 @@ class CrearGerenteControlador extends GetxController {
 
       cargando.value = false;
       SnackbarPersonalizado.mostrarExito('Gerente creado con éxito');
-      Get.to(() => HomePantalla());
+      Get.to(() => PrincipalPantalla());
 
     } on FirebaseAuthException catch (e) {
       cargando.value = false;
