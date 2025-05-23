@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:sazon_urbano/DB/repositories/auth/iniciar_sesion_repositorio.dart';
+import 'package:sazon_urbano/controllers/navigation/navegacion_controlador.dart';
 
 class AutenticacionControlador extends GetxController {
   final AuthRepositorio _authRepositorio = AuthRepositorio();
@@ -31,9 +33,28 @@ class AutenticacionControlador extends GetxController {
 
   Future<bool> loginConFirebase(String email, String password) async {
     try {
-      await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
-      _authRepositorio.guardarInicioSesion();
+      final cred = await _firebaseAuth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      final snapshot = await FirebaseFirestore.instance
+          .collection('usuarios')
+          .doc(cred.user!.uid)
+          .get();
+      final idRol = snapshot.data()?['idRol'] ?? '3';
+
+      _authRepositorio.guardarInicioSesion(idRol: idRol);
       _esLogueado.value = true;
+
+      // 🔥 IMPORTANTE: Asegúrate de limpiar el controlador previo
+      if (Get.isRegistered<NavegacionControlador>()) {
+        Get.delete<NavegacionControlador>(force: true);
+      }
+
+      // ✅ Registrar uno nuevo
+      Get.put(NavegacionControlador());
+
       return true;
     } on FirebaseAuthException {
       return false;
@@ -53,6 +74,11 @@ class AutenticacionControlador extends GetxController {
     await _firebaseAuth.signOut();
     _authRepositorio.cerrarSesion();
     _esLogueado.value = false;
+
+    // Solo eliminar el controlador
+    if (Get.isRegistered<NavegacionControlador>()) {
+      Get.delete<NavegacionControlador>();
+    }
   }
 
   bool sesionExpirada() {

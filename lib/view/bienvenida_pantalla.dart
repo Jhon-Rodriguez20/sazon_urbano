@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sazon_urbano/controllers/auth/autenticacion_controlador.dart';
+import 'package:sazon_urbano/principal_binding.dart';
 import 'package:sazon_urbano/view/iniciar_sesion_pantalla.dart';
 import 'package:sazon_urbano/view/presentacion_pantalla.dart';
 import 'package:sazon_urbano/view/principal_pantalla.dart';
@@ -19,13 +20,12 @@ class BienvenidaPantalla extends StatelessWidget {
         Get.off(()=> const PresentacionPantalla());
 
       } else if (autenticacionControlador.esLogueado) {
-        Get.off(()=> const PrincipalPantalla());
+        Get.offAll(() => PrincipalPantalla(), binding: PrincipalBinding());
 
       } else {
         Get.off(()=> IniciarSesionPantalla());
       }
     });
-
 
     return Scaffold(
       body: Container(
@@ -35,10 +35,9 @@ class BienvenidaPantalla extends StatelessWidget {
             end: Alignment.bottomRight,
             colors: [
               Theme.of(context).primaryColor,
-              Theme.of(context).primaryColor.withValues(),
-              Theme.of(context).primaryColor.withValues(),
-            ]
-
+            const Color.fromARGB(255, 255, 154, 38),
+            const Color.fromARGB(255, 255, 169, 41),
+            ],
           ),
         ),
         child: Stack(
@@ -51,77 +50,30 @@ class BienvenidaPantalla extends StatelessWidget {
               ),
               )),
             
-            // main content
             Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // animated logo container
                   TweenAnimationBuilder<double>(
                     tween: Tween(begin: 0.0, end: 1.0),
                     duration: Duration(milliseconds: 1200),
                     builder: (context, value, child){
-                      return Transform.scale(
-                        scale: value,
-                        child: Container(
-                          padding: EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.circle,
-                            boxShadow: [
-                              BoxShadow(
-                                color: const Color.fromARGB(255, 174, 174, 174),
-                                blurRadius: 20,
-                                spreadRadius: 2,
-                                offset: const Offset(0, 4),
-                              ),
-                            ],
-                          ),
-                          child: Icon(Icons.restaurant_menu_outlined,
-                          size: 70,
-                          color: Theme.of(context).primaryColor,
-                          ),
+                      return Opacity(opacity: value,
+                        child: Transform.translate(
+                          offset: Offset(0, 20 * (1 - value)),
+                          child: child,
                         ),
                       );
                     },
+                    child: Column(
+                      children: [
+                        Image.asset(
+                          'assets/images/Logo.webp',
+                          height: MediaQuery.of(context).size.height * 0.4,
+                        ),
+                      ],
                     ),
-                    const SizedBox(height: 32),
-
-                    TweenAnimationBuilder<double>(
-                    tween: Tween(begin: 0.0, end: 1.0),
-                    duration: Duration(milliseconds: 1200),
-                    builder: (context, value, child){
-                      return Opacity(opacity: value,
-                      child: Transform.translate(
-                        offset: Offset(0, 20 * (1 - value)),
-                        child: child,
-                      ),
-                    );
-                  },
-                  child: Column(
-                    children: [
-                      Text(
-                        "BOCADOS DE",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 32,
-                          fontWeight: FontWeight.w300,
-                          letterSpacing: 8,
-                        ),
-                      ),
-                      Text(
-                        "TRADICIÓN",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 32,
-                          fontWeight: FontWeight.w600,
-                          letterSpacing: 4,
-                        ),
-                      ),
-                    ],
                   ),
-                  ),
-                  // bottom tagline
                 ],
               ),
             ),
@@ -139,11 +91,11 @@ class BienvenidaPantalla extends StatelessWidget {
                 );
               },
                 child: Text(
-                  'Bocados de tradición, donde la tradición cobra sabor',
+                  'Tradición que se saborea',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Colors.white.withValues(),
-                    fontSize: 16,
+                    color: Colors.white,
+                    fontSize: 15,
                     letterSpacing: 2,
                     fontWeight: FontWeight.w400,
                   ),

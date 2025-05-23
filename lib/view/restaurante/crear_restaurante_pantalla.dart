@@ -1,10 +1,7 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:sazon_urbano/controllers/restaurante/restaurante_controlador.dart';
-import 'package:sazon_urbano/DB/repositories/usuario/buscar_usuarios.dart';
 import 'package:sazon_urbano/utils/app_estilos_texto.dart';
 import 'package:sazon_urbano/view/widgets/formulario_personalizado.dart';
 import 'package:sazon_urbano/widgets/seleccionar%20imagen/imagen_seleccionar.dart';
@@ -24,9 +21,7 @@ class _CrearRestaurantePantallaState extends State<CrearRestaurantePantalla> {
   final _direccionController = TextEditingController();
   final _telefonoController = TextEditingController();
 
-  String? _idGerenteSeleccionado;
   final RestauranteControlador _restauranteControlador = Get.put(RestauranteControlador());
-  final BuscarUsuarios _buscarUsuarios = BuscarUsuarios();
 
   @override
   Widget build(BuildContext context) {
@@ -42,11 +37,7 @@ class _CrearRestaurantePantallaState extends State<CrearRestaurantePantalla> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                IconButton(
-                  onPressed: () => Get.back(),
-                  icon: Icon(Icons.arrow_back_ios, color: isDark ? Colors.white : Colors.black),
-                ),
-                const SizedBox(height: 20),
+                SizedBox(height: 35),
                 Text(
                   'Crear Restaurante',
                   style: AppEstilosTexto.withColor(
@@ -102,89 +93,6 @@ class _CrearRestaurantePantallaState extends State<CrearRestaurantePantalla> {
                   validator: (value) =>
                       value == null || value.isEmpty ? 'Por favor ingrese el teléfono' : null,
                 ),
-                const SizedBox(height: 16),
-
-
-                FutureBuilder<List<Map<String, dynamic>>>(
-                  future: _buscarUsuarios.obtenerGerentes(),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-                    if (snapshot.hasError) {
-                      return Text('Error al cargar gerentes: ${snapshot.error}');
-                    }
-
-                    final gerentes = snapshot.data ?? [];
-
-                    return DropdownSearch<Map<String, dynamic>>(
-                      popupProps: PopupProps.menu(
-                        showSearchBox: true,
-                        searchFieldProps: TextFieldProps(
-                          decoration: InputDecoration(
-                            hintText: "Buscar gerente...",
-                            prefixIcon: Icon(Icons.search),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                          ),
-                        ),
-                        // Opcional: personaliza el estilo del popup con un fondo
-                        containerBuilder: (ctx, popupWidget) => Material(
-                          color: isDark ? Colors.grey[900] : Colors.white,
-                          elevation: 4,
-                          borderRadius: BorderRadius.circular(12),
-                          child: popupWidget,
-                        ),
-                      ),
-                      items: gerentes,
-                      itemAsString: (item) => item['nombre'] ?? 'Sin nombre',
-                      dropdownDecoratorProps: DropDownDecoratorProps(
-                        dropdownSearchDecoration: InputDecoration(
-                          labelText: 'Seleccionar Gerente',
-                          labelStyle: TextStyle(
-                            color: isDark ? Colors.grey[500] : Colors.grey[600],
-                          ),
-                          prefixIcon: const Icon(Icons.person_outline),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(
-                              color: isDark ? Colors.grey[700]! : Colors.grey[300]!,
-                            ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(
-                              color: Theme.of(context).primaryColor,
-                            ),
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.error,
-                            ),
-                          ),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.error,
-                            ),
-                          ),
-                        ),
-                      ),
-                      validator: (value) => value == null ? 'Seleccione un gerente' : null,
-                      onChanged: (value) {
-                        if (value != null) {
-                          _idGerenteSeleccionado = value['idUsuario'];
-                        }
-                      },
-                      selectedItem: null,
-                    );
-                  },
-                ),
                 const SizedBox(height: 24),
 
                 ImagenSeleccionar(
@@ -199,7 +107,7 @@ class _CrearRestaurantePantallaState extends State<CrearRestaurantePantalla> {
                   width: double.infinity,
                   child: Obx(() => ElevatedButton(
                         onPressed: () async {
-                          if (!_formKey.currentState!.validate() || _idGerenteSeleccionado == null) {
+                          if (!_formKey.currentState!.validate()) {
                             Get.snackbar('Error', 'Debe completar todos los campos');
                             return;
                           }
@@ -211,7 +119,6 @@ class _CrearRestaurantePantallaState extends State<CrearRestaurantePantalla> {
                               direccion: _direccionController.text.trim(),
                               telefono: _telefonoController.text.trim(),
                               imagen: _imagenSeleccionada,
-                              idGerente: _idGerenteSeleccionado!,
                             );
                           } catch (e) {
                             Get.snackbar('Error', e.toString());

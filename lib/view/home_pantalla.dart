@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sazon_urbano/controllers/restaurante/restaurante_controlador.dart';
-import 'package:sazon_urbano/controllers/theme/tema_controlador.dart';
 import 'package:sazon_urbano/security/seguridad_sesion.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sazon_urbano/view/restaurante/restaurante_grid.dart';
@@ -82,17 +81,17 @@ class _HomePantallaState extends State<HomePantalla> {
                       ),
                     ],
                   ),
-                  Spacer(),
-                  GetBuilder<TemaControlador>(
-                    builder: (controller) => IconButton(
-                      onPressed: () => controller.elegirTema(),
-                      icon: Icon(
-                        controller.esModoOscuro
-                            ? Icons.light_mode
-                            : Icons.dark_mode,
-                      ),
-                    ),
-                  ),
+                  // Spacer(),
+                  // GetBuilder<TemaControlador>(
+                  //   builder: (controller) => IconButton(
+                  //     onPressed: () => controller.elegirTema(),
+                  //     icon: Icon(
+                  //       controller.esModoOscuro
+                  //           ? Icons.light_mode
+                  //           : Icons.dark_mode,
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
             ),

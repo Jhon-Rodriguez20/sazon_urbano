@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class AppTemas {
   // light theme
   static final light = ThemeData(
-    primaryColor: const Color.fromARGB(255, 255, 196, 34),
+    primaryColor: const Color(0xFFFE8C0E),
     scaffoldBackgroundColor: Colors.white,
     brightness: Brightness.light,
     appBarTheme: const AppBarTheme(
@@ -14,22 +14,22 @@ class AppTemas {
       )
     ),
     colorScheme: ColorScheme.fromSeed(
-      seedColor: const Color.fromARGB(255, 255, 196, 34),
-      primary: const Color.fromARGB(255, 255, 196, 34),
+      seedColor: const Color(0xFFFE8C0E),
+      primary: const Color(0xFFFE8C0E),
       brightness: Brightness.light,
       surface: Colors.white,
     ),
     cardColor: Colors.white,
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: Colors.white,
-      selectedItemColor: Color.fromARGB(255, 255, 196, 34),
+      selectedItemColor: Color(0xFFFE8C0E),
       unselectedItemColor: Colors.grey,
     ),
   );
 
   // dark theme
   static final dark = ThemeData(
-    primaryColor: const Color.fromARGB(255, 255, 196, 34),
+    primaryColor: const Color(0xFFFE8C0E),
     scaffoldBackgroundColor: const Color(0xFF121212),
     brightness: Brightness.dark,
     appBarTheme: const AppBarTheme(
@@ -40,15 +40,15 @@ class AppTemas {
       )
     ),
     colorScheme: ColorScheme.fromSeed(
-      seedColor: const Color.fromARGB(255, 255, 196, 34),
-      primary: const Color.fromARGB(255, 255, 196, 34),
+      seedColor: const Color(0xFFFE8C0E),
+      primary: const Color(0xFFFE8C0E),
       brightness: Brightness.dark,
       surface: const Color(0xFF121212),
     ),
     cardColor: const Color(0xFF1E1E1E),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: Color(0xFF1E1E1E),
-      selectedItemColor: Color.fromARGB(255, 255, 196, 34),
+      selectedItemColor: Color(0xFFFE8C0E),
       unselectedItemColor: Colors.grey,
     ),
   );

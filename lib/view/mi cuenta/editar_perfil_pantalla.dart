@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sazon_urbano/utils/app_estilos_texto.dart';
 import 'package:sazon_urbano/widgets/editar%20perfil/perfil_formulario.dart';
-// import 'package:sazon_urbano/widgets/seleccionar%20imagen/imagen_seleccionar.dart';
 
 class EditarPerfilPantalla extends StatelessWidget {
   const EditarPerfilPantalla({super.key});
@@ -15,7 +14,7 @@ class EditarPerfilPantalla extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () => Get.back(),
-          icon: Icon(Icons.arrow_back_ios),
+          icon: Icon(Icons.arrow_back),
         ),
         title: Text(
           'Editar Perfil',
@@ -28,13 +27,6 @@ class EditarPerfilPantalla extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: 24),
-            // ImagenSeleccionar(
-            //   imagenSeleccionada: _imagenSeleccionada,
-            //   onImageSelected: (File? img) {
-            //     _imagenSeleccionada = img;
-            //   },
-            // ),
             SizedBox(height: 32),
             PerfilFormulario(),
           ],

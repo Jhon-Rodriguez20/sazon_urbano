@@ -130,57 +130,84 @@ class MiCuentaPantalla extends StatelessWidget {
 
   Widget _buildMenuSection(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final menuItems = [
-      {'icon': Icons.store, 'title': 'Mis Restaurantes'},
-      {'icon': Icons.help_outline, 'title': 'Centro de Ayuda'},
-      {'icon': Icons.logout_outlined, 'title': 'Cerrar Sesion'},
-    ];
+    final user = FirebaseAuth.instance.currentUser;
 
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16),
-      child: Column(
-        children: menuItems.map((item){
-          return Container(
-            margin: EdgeInsets.only(bottom: 8),
-            decoration: BoxDecoration(
-              color: Theme.of(context).cardColor,
-              borderRadius: BorderRadius.circular(12),
-              boxShadow: [
-                BoxShadow(
-                  color: isDark ? const Color.fromARGB(255, 39, 39, 39) : const Color.fromARGB(255, 237, 237, 237),
-                  blurRadius: 8,
-                  offset: Offset(0, 2),
+    if (user == null) {
+      return Center(child: Text('Usuario no autenticado'));
+    }
+
+    return FutureBuilder<DocumentSnapshot>(
+      future: FirebaseFirestore.instance.collection('usuarios').doc(user.uid).get(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        }
+
+        if (!snapshot.hasData || !snapshot.data!.exists) {
+          return Center(child: Text('No se pudo obtener el rol del usuario'));
+        }
+
+        final userData = snapshot.data!.data() as Map<String, dynamic>;
+        final idRol = userData['idRol'];
+
+        final List<Map<String, dynamic>> menuItems = [];
+
+        if (idRol == '2') {
+          menuItems.add({'icon': Icons.store, 'title': 'Mis Restaurantes'});
+        }
+
+        menuItems.addAll([
+          {'icon': Icons.logout_outlined, 'title': 'Cerrar Sesion'},
+        ]);
+
+        return Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            children: menuItems.map((item) {
+              return Container(
+                margin: EdgeInsets.only(bottom: 8),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).cardColor,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: isDark
+                          ? const Color.fromARGB(255, 39, 39, 39)
+                          : const Color.fromARGB(255, 237, 237, 237),
+                      blurRadius: 8,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            child: ListTile(
-              leading: Icon(
-                item['icon'] as IconData,
-                color: Theme.of(context).primaryColor,
-              ),
-              title: Text(
-                item['title'] as String,
-                style: AppEstilosTexto.withColor(
-                  AppEstilosTexto.bodyMedium,
-                  Theme.of(context).textTheme.bodyLarge!.color!
+                child: ListTile(
+                  leading: Icon(
+                    item['icon'] as IconData,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  title: Text(
+                    item['title'] as String,
+                    style: AppEstilosTexto.withColor(
+                      AppEstilosTexto.bodyMedium,
+                      Theme.of(context).textTheme.bodyLarge!.color!,
+                    ),
+                  ),
+                  trailing: Icon(
+                    Icons.chevron_right,
+                    color: isDark ? Colors.grey[400] : Colors.grey[600],
+                  ),
+                  onTap: () {
+                    if (item['title'] == 'Cerrar Sesion') {
+                      _showLogoutDialog(context);
+                    } else if (item['title'] == 'Mis Restaurantes') {
+                      Get.to(() => MisRestaurantesPantalla());
+                    }
+                  },
                 ),
-              ),
-              trailing: Icon(
-                Icons.chevron_right,
-                color: isDark ? Colors.grey[400] : Colors.grey[600],
-              ),
-              onTap: (){
-                if(item['title'] == 'Cerrar Sesion') {
-                  _showLogoutDialog(context);
-                } 
-                else if (item['title'] == 'Mis Restaurantes') {
-                  Get.to(()=> MisRestaurantesPantalla());
-                }
-              },
-            ),
-          );
-        }).toList(),
-      ),
+              );
+            }).toList(),
+          ),
+        );
+      },
     );
   }
 
@@ -248,10 +275,11 @@ class MiCuentaPantalla extends StatelessWidget {
                 SizedBox(width: 16),
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: () {
-                      final AutenticacionControlador autenticacionControlador = Get.find<AutenticacionControlador>();
-                      autenticacionControlador.logout();
-                      Get.offAll(()=> IniciarSesionPantalla());
+                    onPressed: () async {
+                      final autenticacionControlador = Get.find<AutenticacionControlador>();
+                      await autenticacionControlador.logout();
+                      // Navegar a login
+                      Get.offAll(() => IniciarSesionPantalla());
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Theme.of(context).primaryColor,

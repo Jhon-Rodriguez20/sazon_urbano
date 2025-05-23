@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sazon_urbano/controllers/theme/tema_controlador.dart';
 import 'package:sazon_urbano/utils/app_estilos_texto.dart';
+import 'package:sazon_urbano/view/accesibilidad/accesibilidad_pantalla.dart';
 
 class ConfiguracionPantalla extends StatelessWidget {
   const ConfiguracionPantalla({super.key});
@@ -16,7 +17,7 @@ class ConfiguracionPantalla extends StatelessWidget {
         leading: IconButton(
           onPressed: ()=> Get.back(),
           icon: Icon(
-            Icons.arrow_back_ios,
+            Icons.arrow_back,
             color: isDark ? Colors.white : Colors.black,
           )
         ),
@@ -39,7 +40,7 @@ class ConfiguracionPantalla extends StatelessWidget {
                 _buildThemeToggle(context),
               ],
             ),
-            _buildSection(context, 'Privacy', [
+            _buildSection(context, 'Privacidad', [
               _buildNavigationTile(
                 context,
                 'Políticas de Privacidad',
@@ -53,6 +54,16 @@ class ConfiguracionPantalla extends StatelessWidget {
                 'Leer sobre nuestros términos de servicio',
                 Icons.description_outlined,
                 // onTap: ()=> Get.to(() => TermsOfServiceScreen()),
+              ),
+            ],),
+
+            _buildSection(context, 'Accesibilidad', [
+              _buildNavigationTile(
+              context,
+              'Menú de accesibilidad',
+              'Establece las opciones que te parezcan mejor para una mejor experiencia de usuario.',
+              Icons.accessibility_outlined,
+              onTap: () => Get.to(() => AccesibilidadPantalla()),
               ),
             ],),
 

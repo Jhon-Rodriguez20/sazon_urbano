@@ -24,7 +24,7 @@ class MisRestaurantesPantalla extends StatelessWidget {
         leading: IconButton(
           onPressed: () => Get.back(),
           icon: Icon(
-            Icons.arrow_back_ios,
+            Icons.arrow_back,
             color: isDark ? Colors.white : Colors.black,
           ),
         ),

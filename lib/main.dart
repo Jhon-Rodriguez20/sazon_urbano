@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
     final temaControlador = Get.find<TemaControlador>();
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Sazón Urbano',
+      title: 'Bocados de Tradición',
       theme: AppTemas.light,
       darkTheme: AppTemas.dark,
       themeMode: temaControlador.theme,

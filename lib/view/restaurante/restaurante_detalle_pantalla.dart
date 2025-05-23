@@ -36,9 +36,8 @@ class RestauranteDetallePantalla extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Imagen del restaurante (si no hay, mostrar ícono por defecto)
             AspectRatio(
-              aspectRatio: 16 / 9,
+              aspectRatio: 16 / 11,
               child: restaurante.urlImagen.isNotEmpty
                   ? Image.network(
                       restaurante.urlImagen,

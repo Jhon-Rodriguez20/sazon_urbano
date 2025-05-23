@@ -40,7 +40,7 @@ class _CrearPlatoPantallaState extends State<CrearPlatoPantalla> {
               children: [
                 IconButton(
                   onPressed: () => Get.back(),
-                  icon: Icon(Icons.arrow_back_ios, color: isDark ? Colors.white : Colors.black),
+                  icon: Icon(Icons.arrow_back, size: 30, color: isDark ? Colors.white : Colors.black),
                 ),
                 const SizedBox(height: 20),
                 Text(

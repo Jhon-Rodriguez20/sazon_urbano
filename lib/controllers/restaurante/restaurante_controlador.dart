@@ -1,9 +1,10 @@
 import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:sazon_urbano/DB/repositories/restaurante/restaurante_repositorio.dart';
 import 'package:sazon_urbano/models/restaurante/restaurante_modelo.dart';
 import 'package:sazon_urbano/service/image_service.dart';
-import 'package:sazon_urbano/view/principal_pantalla.dart';
+import 'package:sazon_urbano/view/restaurante/mis_restaurantes_pantalla.dart';
 import 'package:sazon_urbano/view/widgets/snacbar_personalizado.dart';
 import 'package:uuid/uuid.dart';
 
@@ -17,9 +18,14 @@ class RestauranteControlador extends GetxController {
     required String direccion,
     required String telefono,
     required File? imagen,
-    required String idGerente,
-
+    
   }) async {
+    final String? idGerente = FirebaseAuth.instance.currentUser?.uid;
+
+    if (idGerente == null) {
+      SnackbarPersonalizado.mostrarError('Error: Usuario no autenticado');
+      return;
+    }
     String? urlImagen;
     
     try {
@@ -45,11 +51,10 @@ class RestauranteControlador extends GetxController {
 
       cargando.value = false;
       SnackbarPersonalizado.mostrarExito('Restaurante creado con éxito');
-      Get.to(()=> PrincipalPantalla());
+      Get.to(()=> MisRestaurantesPantalla());
 
     } catch (e) {
       cargando.value = false;
-      // Si se subió la imagen pero falló después, eliminarla
       if (e.toString().contains('Error al crear restaurante') && urlImagen != null) {
         try {
           await ImageService.deleteImage(urlImagen);

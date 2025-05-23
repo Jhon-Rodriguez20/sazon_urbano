@@ -35,14 +35,7 @@ class _CrearGerentePantallaState extends State<CrearGerentePantalla> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                IconButton(
-                  onPressed: () => Get.back(),
-                  icon: Icon(
-                    Icons.arrow_back_ios,
-                    color: isDark ? Colors.white : Colors.black,
-                  ),
-                ),
-                const SizedBox(height: 20),
+                SizedBox(height: 35),
                 Text(
                   'Crear Gerente',
                   style: AppEstilosTexto.withColor(

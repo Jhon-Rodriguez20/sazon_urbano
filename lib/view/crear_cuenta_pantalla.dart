@@ -38,7 +38,7 @@ class _CrearCuentaPantallaState extends State<CrearCuentaPantalla> {
                 IconButton(
                   onPressed: () => Get.back(),
                   icon: Icon(
-                    Icons.arrow_back_ios,
+                    Icons.arrow_back,
                     color: isDark ? Colors.white : Colors.black,
                   ),
                 ),

@@ -7,11 +7,13 @@ import 'package:sazon_urbano/utils/imagen_picker.dart';
 class ImagenSeleccionar extends StatefulWidget {
   final void Function(File?) onImageSelected;
   final File? imagenSeleccionada;
+  final String? urlImagenRemota;
 
   const ImagenSeleccionar({
     super.key,
     required this.onImageSelected,
     this.imagenSeleccionada,
+    this.urlImagenRemota,
   });
 
   @override
@@ -116,24 +118,26 @@ class _ImagenSeleccionarState extends State<ImagenSeleccionar> {
               border: Border.all(color: Theme.of(context).primaryColor, width: 2),
               color: const Color.fromARGB(255, 255, 249, 229),
             ),
-            child: _imagen == null
-                ? Center(
-                    child: Text(
-                      'Imagen',
-                      style: AppEstilosTexto.withColor(
-                        AppEstilosTexto.buttonMedium,
-                        Theme.of(context).primaryColor
-                      ),
-                    ),
-                  )
-                : ClipOval(
-                    child: Image.file(
-                      _imagen!,
+            child: _imagen != null
+            ? ClipOval(
+                child: Image.file(
+                  _imagen!,
+                  width: 120,
+                  height: 120,
+                  fit: BoxFit.cover,
+                ),
+              )
+            : (widget.urlImagenRemota != null && widget.urlImagenRemota!.isNotEmpty)
+                ? ClipOval(
+                    child: Image.network(
+                      widget.urlImagenRemota!,
                       width: 120,
                       height: 120,
                       fit: BoxFit.cover,
+                      errorBuilder: (_, __, ___) => _placeholder(),
                     ),
-                  ),
+                  )
+                : _placeholder(),
           ),
           Positioned(
             bottom: 0,
@@ -193,6 +197,18 @@ class _ImagenSeleccionarState extends State<ImagenSeleccionar> {
               color: isDark ? Colors.grey[400] : Colors.blueGrey[600],
             )
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _placeholder() {
+    return Center(
+      child: Text(
+        'Imagen',
+        style: AppEstilosTexto.withColor(
+          AppEstilosTexto.buttonMedium,
+          Theme.of(context).primaryColor,
         ),
       ),
     );

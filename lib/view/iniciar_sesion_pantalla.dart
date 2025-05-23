@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sazon_urbano/controllers/auth/autenticacion_controlador.dart';
+import 'package:sazon_urbano/principal_binding.dart';
 import 'package:sazon_urbano/utils/app_estilos_texto.dart';
 import 'package:sazon_urbano/view/crear_cuenta_pantalla.dart';
 import 'package:sazon_urbano/view/principal_pantalla.dart';
@@ -138,7 +139,7 @@ class IniciarSesionPantalla extends StatelessWidget {
       final loginExitoso = await autenticacionControlador.loginConFirebase(email, password);
 
       if (loginExitoso) {
-        Get.offAll(() => const PrincipalPantalla());
+        Get.offAll(() => PrincipalPantalla(), binding: PrincipalBinding());
       } else {
         Get.snackbar(
           'Error al iniciar sesión',

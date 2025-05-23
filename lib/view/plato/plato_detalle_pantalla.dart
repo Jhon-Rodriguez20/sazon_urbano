@@ -35,7 +35,7 @@ class PlatoDetallePantalla extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             AspectRatio(
-              aspectRatio: 16 / 9,
+              aspectRatio: 16 / 11,
               child: plato.urlImagen.isNotEmpty
                   ? Image.network(
                       plato.urlImagen,
