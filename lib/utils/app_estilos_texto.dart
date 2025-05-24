@@ -60,8 +60,20 @@ class AppEstilosTexto {
     return style.copyWith(color: color);
   }
 
-  // 
   static TextStyle withWeight(TextStyle style, FontWeight weight) {
     return style.copyWith(fontWeight: weight);
+  }
+
+  static TextStyle withAccesibilidad(
+    TextStyle style, {
+    required bool agrandar,
+    required bool espaciado,
+    Color? color,
+  }) {
+    return style.copyWith(
+      fontSize: agrandar ? (style.fontSize ?? 14) * 1.3 : style.fontSize,
+      letterSpacing: espaciado ? 2.0 : (style.letterSpacing ?? 0.5),
+      color: color ?? style.color,
+    );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:sazon_urbano/utils/app_estilos_texto.dart';
 
 class FormularioPersonalizado extends StatefulWidget {
@@ -10,7 +11,8 @@ class FormularioPersonalizado extends StatefulWidget {
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
   final String? initialValue;
-  
+  final List<TextInputFormatter>? inputFormatters;
+
   const FormularioPersonalizado({
     super.key,
     required this.label,
@@ -21,10 +23,12 @@ class FormularioPersonalizado extends StatefulWidget {
     this.validator,
     this.onChanged,
     this.initialValue,
+    this.inputFormatters, // ✅ NUEVO
   });
 
   @override
-  State<FormularioPersonalizado> createState() => _FormularioPersonalizadoState();
+  State<FormularioPersonalizado> createState() =>
+      _FormularioPersonalizadoState();
 }
 
 class _FormularioPersonalizadoState extends State<FormularioPersonalizado> {
@@ -41,6 +45,7 @@ class _FormularioPersonalizadoState extends State<FormularioPersonalizado> {
       keyboardType: widget.keyboardType,
       validator: widget.validator,
       onChanged: widget.onChanged,
+      inputFormatters: widget.inputFormatters,
       style: AppEstilosTexto.withColor(
         AppEstilosTexto.bodyMedium,
         Theme.of(context).textTheme.bodyLarge!.color!,
@@ -49,55 +54,52 @@ class _FormularioPersonalizadoState extends State<FormularioPersonalizado> {
         labelText: widget.label,
         labelStyle: AppEstilosTexto.withColor(
           AppEstilosTexto.bodyMedium,
-          isDark? Colors.grey[400]! : Colors.grey[600]!,
+          isDark ? Colors.grey[400]! : Colors.grey[600]!,
         ),
         prefixIcon: Icon(
           widget.prefixIcon,
-          color: isDark? Colors.grey[400] : Colors.grey[600],
+          color: isDark ? Colors.grey[400] : Colors.grey[600],
         ),
         suffixIcon: widget.isPassword
-          ? IconButton(
-              onPressed: () {
-                setState(() {
-                  _obscureText = !_obscureText;
-                });
-              },
-              icon: Icon(
-                _obscureText ? Icons.visibility_off : Icons.visibility,
-              ),
-            )
-          : null,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(
-              color: isDark? Colors.grey[700]! : Colors.grey[300]!,
-            ),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(
-              color: isDark? Colors.grey[700]! : Colors.grey[300]!,
-            ),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(
-              color: Theme.of(context).primaryColor,
-            ),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(
-              color: Theme.of(context).colorScheme.error,
-            ),
-          ),
-          focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(
-              color: Theme.of(context).colorScheme.error,
-            ),
+            ? IconButton(
+                onPressed: () {
+                  setState(() {
+                    _obscureText = !_obscureText;
+                  });
+                },
+                icon: Icon(
+                  _obscureText ? Icons.visibility_off : Icons.visibility,
+                ),
+              )
+            : null,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(
+            color: isDark ? Colors.grey[700]! : Colors.grey[300]!,
           ),
         ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(
+            color: Theme.of(context).primaryColor,
+          ),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(
+            color: Theme.of(context).colorScheme.error,
+          ),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(
+            color: Theme.of(context).colorScheme.error,
+          ),
+        ),
+      ),
     );
   }
 }

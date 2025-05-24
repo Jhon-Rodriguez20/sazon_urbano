@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sazon_urbano/controllers/accesibilidad/accesibilidad_controlador.dart';
 import 'package:sazon_urbano/controllers/theme/tema_controlador.dart';
 import 'package:sazon_urbano/utils/app_estilos_texto.dart';
-import 'package:sazon_urbano/view/accesibilidad/accesibilidad_pantalla.dart';
+import 'package:sazon_urbano/view/accesibilidad/views/accesibilidad_pantalla.dart';
+import 'package:sazon_urbano/view/politicas%20privacidad/views/politicas_privacidad_pantalla.dart';
+import 'package:sazon_urbano/view/terminos%20de%20servicio/views/terminos_de_servicio_pantalla.dart';
+import 'package:sazon_urbano/view/version%20app/views/version_app_pantalla.dart';
 
 class ConfiguracionPantalla extends StatelessWidget {
   const ConfiguracionPantalla({super.key});
@@ -10,74 +14,102 @@ class ConfiguracionPantalla extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final accesibilidadCtrl = Get.find<AccesibilidadControlador>();
 
-    return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: ()=> Get.back(),
-          icon: Icon(
-            Icons.arrow_back,
-            color: isDark ? Colors.white : Colors.black,
-          )
-        ),
-        title: Text(
-          'Configuración',
-          style: AppEstilosTexto.withColor(
-            AppEstilosTexto.h3,
-            isDark ? Colors.white : Colors.black,
+    return Obx(() {
+      final agrandar = accesibilidadCtrl.agrandarTexto.value;
+      final espaciado = accesibilidadCtrl.espaciadoTexto.value;
+      final desaturar = accesibilidadCtrl.activarDesaturacion.value;
+
+      return ColorFiltered(
+        colorFilter: desaturar
+          ? const ColorFilter.matrix(<double>[
+            0.2126, 0.7152, 0.0722, 0, 0,
+            0.2126, 0.7152, 0.0722, 0, 0,
+            0.2126, 0.7152, 0.0722, 0, 0,
+            0, 0, 0, 1, 0,
+          ])
+          : const ColorFilter.mode(Colors.transparent, BlendMode.dst),
+        child: Scaffold(
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          appBar: AppBar(
+            leading: IconButton(
+              onPressed: ()=> Get.back(),
+              icon: Icon(
+                Icons.arrow_back,
+                color: isDark ? Colors.white : Colors.black,
+              )
+            ),
+            title: Text(
+              'Configuración',
+              style: AppEstilosTexto.withAccesibilidad(
+                AppEstilosTexto.h3,
+                agrandar: agrandar,
+                espaciado: espaciado,
+                color: isDark ? Colors.white : Colors.black,
+              ),
+            ),
           ),
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildSection(
-              context,
-              'Apariencia',
-              [
-                _buildThemeToggle(context),
+          body: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildSection(
+                  context,
+                  'Apariencia',
+                  [
+                    _buildThemeToggle(context),
+                  ],
+                ),
+                _buildSection(context, 'Privacidad', [
+                  _buildNavigationTile(
+                    context,
+                    'Políticas de Privacidad',
+                    'Ver nuestras políticas de Privacidad',
+                    Icons.privacy_tip_outlined,
+                    onTap: ()=> Get.to(() => PoliticasPrivacidadPantalla()),
+                  ),
+                  _buildNavigationTile(
+                    context,
+                    'Términos de Servicio',
+                    'Leer sobre nuestros términos de servicio',
+                    Icons.description_outlined,
+                    onTap: ()=> Get.to(() => TerminosDeServicioPantalla()),
+                  ),
+                ],),
+
+                _buildSection(context, 'Accesibilidad', [
+                  _buildNavigationTile(
+                  context,
+                  'Menú de accesibilidad',
+                  'Establece las opciones que te parezcan mejor para una mejor experiencia de usuario.',
+                  Icons.accessibility_outlined,
+                  onTap: () => Get.to(() => AccesibilidadPantalla()),
+                  ),
+                ],),
+
+                _buildSection(context, 'A cerca de', [
+                  _buildNavigationTile(
+                    context,
+                    'Versión de App',
+                    '1.0.0',
+                    Icons.info_outline,
+                    onTap: () => Get.to(() => VersionAppPantalla()),
+                  ),
+                ],),
               ],
             ),
-            _buildSection(context, 'Privacidad', [
-              _buildNavigationTile(
-                context,
-                'Políticas de Privacidad',
-                'Ver nuestras políticas de Privacidad',
-                Icons.privacy_tip_outlined,
-                // onTap: ()=> Get.to(() => PrivacyPolicyScreen()),
-              ),
-              _buildNavigationTile(
-                context,
-                'Términos de Servicio',
-                'Leer sobre nuestros términos de servicio',
-                Icons.description_outlined,
-                // onTap: ()=> Get.to(() => TermsOfServiceScreen()),
-              ),
-            ],),
-
-            _buildSection(context, 'Accesibilidad', [
-              _buildNavigationTile(
-              context,
-              'Menú de accesibilidad',
-              'Establece las opciones que te parezcan mejor para una mejor experiencia de usuario.',
-              Icons.accessibility_outlined,
-              onTap: () => Get.to(() => AccesibilidadPantalla()),
-              ),
-            ],),
-
-            _buildSection(context, 'A cerca de', [
-              _buildNavigationTile(context, 'Versión de App', '1.0.0', Icons.info_outline)
-            ],),
-          ],
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   Widget _buildSection(BuildContext context, String title, List<Widget> children) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final accesibilidadCtrl = Get.find<AccesibilidadControlador>();
+    final agrandar = accesibilidadCtrl.agrandarTexto.value;
+    final espaciado = accesibilidadCtrl.espaciadoTexto.value;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,9 +118,11 @@ class ConfiguracionPantalla extends StatelessWidget {
           padding: EdgeInsets.fromLTRB(24, 24, 24, 8),
           child: Text(
             title,
-            style: AppEstilosTexto.withColor(
+            style: AppEstilosTexto.withAccesibilidad(
               AppEstilosTexto.h3,
-              isDark ? Colors.grey[400]! : Colors.grey[600]!,
+              agrandar: agrandar,
+              espaciado: espaciado,
+              color: isDark ? Colors.grey[400]! : Colors.grey[600]!,
             ),
           ),
         ),
@@ -99,6 +133,9 @@ class ConfiguracionPantalla extends StatelessWidget {
 
   Widget _buildThemeToggle(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final accesibilidadCtrl = Get.find<AccesibilidadControlador>();
+    final agrandar = accesibilidadCtrl.agrandarTexto.value;
+    final espaciado = accesibilidadCtrl.espaciadoTexto.value;
 
     return GetBuilder<TemaControlador>(
       builder: (controller)=> Container(
@@ -121,9 +158,11 @@ class ConfiguracionPantalla extends StatelessWidget {
           ),
           title: Text(
             'Tema preferido',
-            style: AppEstilosTexto.withColor(
+            style: AppEstilosTexto.withAccesibilidad(
               AppEstilosTexto.bodyMedium,
-              Theme.of(context).textTheme.bodyLarge!.color!
+              agrandar: agrandar,
+              espaciado: espaciado,
+              color: Theme.of(context).textTheme.bodyLarge!.color!,
             ),
           ),
           trailing: Switch.adaptive(
@@ -145,6 +184,9 @@ class ConfiguracionPantalla extends StatelessWidget {
   ) {
     
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final accesibilidadCtrl = Get.find<AccesibilidadControlador>();
+    final agrandar = accesibilidadCtrl.agrandarTexto.value;
+    final espaciado = accesibilidadCtrl.espaciadoTexto.value;
 
     return GestureDetector(
       onTap: onTap,
@@ -168,16 +210,20 @@ class ConfiguracionPantalla extends StatelessWidget {
           ),
           title: Text(
             title,
-            style: AppEstilosTexto.withColor(
+            style: AppEstilosTexto.withAccesibilidad(
               AppEstilosTexto.bodyMedium,
-              Theme.of(context).textTheme.bodyLarge!.color!,
+              agrandar: agrandar,
+              espaciado: espaciado,
+              color: Theme.of(context).textTheme.bodyLarge!.color!,
             ),
           ),
           subtitle: Text(
             subtitle,
-            style: AppEstilosTexto.withColor(
+            style: AppEstilosTexto.withAccesibilidad(
               AppEstilosTexto.bodySmall,
-              isDark ? Colors.grey[400]! : Colors.grey[600]!,
+              agrandar: agrandar,
+              espaciado: espaciado,
+              color: isDark ? Colors.grey[400]! : Colors.grey[600]!,
             ),
           ),
           trailing: Icon(

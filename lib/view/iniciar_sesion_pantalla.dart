@@ -128,7 +128,6 @@ class IniciarSesionPantalla extends StatelessWidget {
     );
   }
 
-  // Sign in button onPressed
   void _handleSignIn() async {
     final AutenticacionControlador autenticacionControlador = Get.find<AutenticacionControlador>();
 

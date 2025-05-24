@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:sazon_urbano/models/restaurante/restaurante_modelo.dart';
 import 'package:sazon_urbano/utils/app_estilos_texto.dart';
 import 'package:sazon_urbano/view/restaurante/restaurante_detalle_pantalla.dart';
+import 'package:sazon_urbano/controllers/accesibilidad/accesibilidad_controlador.dart';
 
 class RestauranteTarjeta extends StatelessWidget {
   final Restaurante restaurante;
@@ -11,6 +12,7 @@ class RestauranteTarjeta extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final accesibilidadCtrl = Get.find<AccesibilidadControlador>();
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return GestureDetector(
@@ -57,10 +59,13 @@ class RestauranteTarjeta extends StatelessWidget {
                 children: [
                   Text(
                     restaurante.razonSocial,
-                    style: AppEstilosTexto.withColor(
-                      AppEstilosTexto.withWeight(
-                          AppEstilosTexto.h3, FontWeight.bold),
-                      Theme.of(context).textTheme.bodyLarge!.color!,
+                    style: AppEstilosTexto.withAccesibilidad(
+                      AppEstilosTexto.withColor(
+                        AppEstilosTexto.withWeight(AppEstilosTexto.h3, FontWeight.bold,),
+                        Theme.of(context).textTheme.bodyLarge!.color!
+                      ),
+                      agrandar: accesibilidadCtrl.agrandarTexto.value,
+                      espaciado: accesibilidadCtrl.espaciadoTexto.value,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -68,9 +73,11 @@ class RestauranteTarjeta extends StatelessWidget {
                   SizedBox(height: screenWidth * 0.01),
                   Text(
                     'Tel: ${restaurante.telefono}',
-                    style: AppEstilosTexto.withColor(
+                    style: AppEstilosTexto.withAccesibilidad(
                       AppEstilosTexto.bodyMedium,
-                      isDark ? Colors.grey[400]! : Colors.grey[600]!,
+                      agrandar: accesibilidadCtrl.agrandarTexto.value,
+                      espaciado: accesibilidadCtrl.espaciadoTexto.value,
+                      color: isDark ? Colors.grey[400]! : Colors.grey[600]!,
                     ),
                   ),
                 ],

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sazon_urbano/controllers/accesibilidad/accesibilidad_controlador.dart';
 import 'package:sazon_urbano/utils/app_estilos_texto.dart';
 
 class PromocionBanner extends StatelessWidget {
@@ -6,6 +8,8 @@ class PromocionBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final accesibilidadCtrl = Get.find<AccesibilidadControlador>();
+
     return Container(
       margin: EdgeInsets.all(16),
       padding: EdgeInsets.all(16),
@@ -21,23 +25,32 @@ class PromocionBanner extends StatelessWidget {
               children: [
                 Text(
                   'Los mejores',
-                  style: AppEstilosTexto.withColor(
+                  style: AppEstilosTexto.withAccesibilidad(
                     AppEstilosTexto.h3,
-                    Colors.white
+                    agrandar: accesibilidadCtrl.agrandarTexto.value,
+                    espaciado: accesibilidadCtrl.espaciadoTexto.value,
+                    color: Colors.white
                   ),
                 ),
                 Text(
                   'Restaurantes',
-                  style: AppEstilosTexto.withColor(
-                    AppEstilosTexto.withWeight(AppEstilosTexto.h2, FontWeight.bold,),
+                  style: AppEstilosTexto.withAccesibilidad(
+                    AppEstilosTexto.withColor(
+                      AppEstilosTexto.withWeight(AppEstilosTexto.h2, FontWeight.bold,),
                     Colors.white
+                    ),
+                    agrandar: accesibilidadCtrl.agrandarTexto.value,
+                    espaciado: accesibilidadCtrl.espaciadoTexto.value,
+                    color: Colors.white
                   ),
                 ),
                 Text(
                   'de la región',
-                  style: AppEstilosTexto.withColor(
+                  style: AppEstilosTexto.withAccesibilidad(
                     AppEstilosTexto.h3,
-                    Colors.white
+                    agrandar: accesibilidadCtrl.agrandarTexto.value,
+                    espaciado: accesibilidadCtrl.espaciadoTexto.value,
+                    color: Colors.white
                   ),
                 ),
               ],
@@ -55,7 +68,7 @@ class PromocionBanner extends StatelessWidget {
               ),
             ),
             child: Text(
-              'Ver todos',
+              'Verlos',
               style: AppEstilosTexto.buttonMedium,
             ),
           ),

@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sazon_urbano/controllers/accesibilidad/accesibilidad_controlador.dart';
 import 'package:sazon_urbano/controllers/auth/autenticacion_controlador.dart';
 import 'package:sazon_urbano/utils/app_estilos_texto.dart';
 import 'package:sazon_urbano/view/configuracion_pantalla.dart';
@@ -16,39 +17,62 @@ class MiCuentaPantalla extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final accesibilidadCtrl = Get.find<AccesibilidadControlador>();
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Mi Cuenta',
-          style: AppEstilosTexto.withColor(
-            AppEstilosTexto.h3,
-            isDark ? Colors.white : Colors.black,
+    return Obx(() {
+      final agrandar = accesibilidadCtrl.agrandarTexto.value;
+      final espaciado = accesibilidadCtrl.espaciadoTexto.value;
+      final desaturar = accesibilidadCtrl.activarDesaturacion.value;
+
+      return ColorFiltered(
+        colorFilter: desaturar
+          ? const ColorFilter.matrix(<double>[
+            0.2126, 0.7152, 0.0722, 0, 0,
+            0.2126, 0.7152, 0.0722, 0, 0,
+            0.2126, 0.7152, 0.0722, 0, 0,
+            0, 0, 0, 1, 0,
+          ])
+          : const ColorFilter.mode(Colors.transparent, BlendMode.dst),
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text(
+              'Mi Cuenta',
+              style: AppEstilosTexto.withAccesibilidad(
+                AppEstilosTexto.h3,
+                agrandar: agrandar,
+                espaciado: espaciado,
+                color: Theme.of(context).textTheme.bodyLarge!.color!,
+              ),
+            ),
+            actions: [
+              IconButton(
+                onPressed: () => Get.to(()=> ConfiguracionPantalla()),
+                icon: Icon(Icons.settings_outlined),
+                color: isDark ? Colors.white : Colors.black,
+              ),
+            ],
           ),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () => Get.to(()=> ConfiguracionPantalla()),
-            icon: Icon(Icons.settings_outlined),
-            color: isDark ? Colors.white : Colors.black,
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                _buildProfileSection(context),
+                SizedBox(height: 24),
+                _buildMenuSection(context),
+              ],
+            ),
           ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            _buildProfileSection(context),
-            SizedBox(height: 24),
-            _buildMenuSection(context),
-          ],
-        ),
-      ),
-    );
+        )
+      );
+    });
   }
 
   Widget _buildProfileSection(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final user = FirebaseAuth.instance.currentUser;
+    final accesibilidadCtrl = Get.find<AccesibilidadControlador>();
+
+    final agrandar = accesibilidadCtrl.agrandarTexto.value;
+    final espaciado = accesibilidadCtrl.espaciadoTexto.value;
 
     if (user == null) {
       return Center(child: Text('Usuario no autenticado'));
@@ -88,17 +112,21 @@ class MiCuentaPantalla extends StatelessWidget {
               SizedBox(height: 16),
               Text(
                 nombre,
-                style: AppEstilosTexto.withColor(
+                style: AppEstilosTexto.withAccesibilidad(
                   AppEstilosTexto.h2,
-                  Theme.of(context).textTheme.bodyLarge!.color!,
+                  agrandar: agrandar,
+                  espaciado: espaciado,
+                  color: Theme.of(context).textTheme.bodyLarge!.color!,
                 ),
               ),
               SizedBox(height: 4),
               Text(
                 email,
-                style: AppEstilosTexto.withColor(
+                style: AppEstilosTexto.withAccesibilidad(
                   AppEstilosTexto.bodyMedium,
-                  isDark ? Colors.grey[400]! : Colors.grey[600]!,
+                  agrandar: agrandar,
+                  espaciado: espaciado,
+                  color: isDark ? Colors.grey[400]! : Colors.grey[600]!,
                 ),
               ),
               SizedBox(height: 16),
@@ -115,9 +143,11 @@ class MiCuentaPantalla extends StatelessWidget {
                 ),
                 child: Text(
                   'Editar Perfil',
-                  style: AppEstilosTexto.withColor(
+                  style: AppEstilosTexto.withAccesibilidad(
                     AppEstilosTexto.bodyMedium,
-                    Theme.of(context).textTheme.bodyLarge!.color!,
+                    agrandar: agrandar,
+                    espaciado: espaciado,
+                    color: Theme.of(context).textTheme.bodyLarge!.color!,
                   ),
                 ),
               ),
@@ -151,6 +181,11 @@ class MiCuentaPantalla extends StatelessWidget {
         final idRol = userData['idRol'];
 
         final List<Map<String, dynamic>> menuItems = [];
+
+        final accesibilidadCtrl = Get.find<AccesibilidadControlador>();
+
+        final agrandar = accesibilidadCtrl.agrandarTexto.value;
+        final espaciado = accesibilidadCtrl.espaciadoTexto.value;
 
         if (idRol == '2') {
           menuItems.add({'icon': Icons.store, 'title': 'Mis Restaurantes'});
@@ -186,9 +221,11 @@ class MiCuentaPantalla extends StatelessWidget {
                   ),
                   title: Text(
                     item['title'] as String,
-                    style: AppEstilosTexto.withColor(
+                    style: AppEstilosTexto.withAccesibilidad(
                       AppEstilosTexto.bodyMedium,
-                      Theme.of(context).textTheme.bodyLarge!.color!,
+                      agrandar: agrandar,
+                      espaciado: espaciado,
+                      color: Theme.of(context).textTheme.bodyLarge!.color!,
                     ),
                   ),
                   trailing: Icon(

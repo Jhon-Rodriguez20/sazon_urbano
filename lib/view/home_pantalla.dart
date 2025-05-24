@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sazon_urbano/controllers/accesibilidad/accesibilidad_controlador.dart';
 import 'package:sazon_urbano/controllers/restaurante/restaurante_controlador.dart';
 import 'package:sazon_urbano/security/seguridad_sesion.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:sazon_urbano/utils/app_estilos_texto.dart';
 import 'package:sazon_urbano/view/restaurante/restaurante_grid.dart';
 import 'package:sazon_urbano/view/widgets/promocion_banner.dart';
-import 'package:sazon_urbano/widgets/editar%20perfil/avatar_usuario.dart';
+import 'package:sazon_urbano/widgets/editar perfil/avatar_usuario.dart';
 
 class HomePantalla extends StatefulWidget {
   const HomePantalla({super.key});
@@ -38,9 +40,12 @@ class _HomePantallaState extends State<HomePantalla> {
   @override
   Widget build(BuildContext context) {
     final usuario = FirebaseAuth.instance.currentUser;
+    final accesibilidadCtrl = Get.find<AccesibilidadControlador>();
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
 
     if (usuario == null) {
-      return Scaffold(
+      return const Scaffold(
         body: Center(
           child: Text("Usuario no autenticado"),
         ),
@@ -48,60 +53,66 @@ class _HomePantallaState extends State<HomePantalla> {
     }
 
     final nombreUsuario = usuario.displayName?.isNotEmpty == true
-      ? usuario.displayName
-      : usuario.email?.split('@').first ?? 'Usuario';
+        ? usuario.displayName
+        : usuario.email?.split('@').first ?? 'Usuario';
 
-    return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      body: SafeArea(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                children: [
-                  AvatarUsuario(radius: 20),
-                  const SizedBox(width: 12),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+    return Obx(() {
+      return ColorFiltered(
+        colorFilter: accesibilidadCtrl.activarDesaturacion.value
+        ? const ColorFilter.matrix([
+            0.2126, 0.7152, 0.0722, 0, 0,
+            0.2126, 0.7152, 0.0722, 0, 0,
+            0.2126, 0.7152, 0.0722, 0, 0,
+            0, 0, 0, 1, 0,
+          ])
+        : const ColorFilter.mode(
+            Colors.transparent,
+            BlendMode.multiply,
+          ),
+        child: Scaffold(
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          body: SafeArea(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Row(
                     children: [
-                      Text(
-                        '$nombreUsuario',
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey,
-                        ),
-                      ),
-                      Text(
-                        obtenerSaludo(),
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      AvatarUsuario(radius: 20),
+                      SizedBox(width: 12),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '$nombreUsuario',
+                            style: AppEstilosTexto.withAccesibilidad(
+                              AppEstilosTexto.bodyMedium,
+                              agrandar: accesibilidadCtrl.agrandarTexto.value,
+                              espaciado: accesibilidadCtrl.espaciadoTexto.value,
+                              color: Colors.grey
+                            ),
+                          ),
+                          Text(
+                            obtenerSaludo(),
+                            style: AppEstilosTexto.withAccesibilidad(
+                              AppEstilosTexto.h3,
+                              agrandar: accesibilidadCtrl.agrandarTexto.value,
+                              espaciado: accesibilidadCtrl.espaciadoTexto.value,
+                              color: isDark ? Colors.white : Colors.black
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                  // Spacer(),
-                  // GetBuilder<TemaControlador>(
-                  //   builder: (controller) => IconButton(
-                  //     onPressed: () => controller.elegirTema(),
-                  //     icon: Icon(
-                  //       controller.esModoOscuro
-                  //           ? Icons.light_mode
-                  //           : Icons.dark_mode,
-                  //     ),
-                  //   ),
-                  // ),
-                ],
-              ),
+                ),
+                PromocionBanner(),
+                Expanded(child: RestauranteGrid()),
+              ],
             ),
-
-            PromocionBanner(),
-
-            Expanded(child: RestauranteGrid()),
-          ],
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

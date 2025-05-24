@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:sazon_urbano/controllers/accesibilidad/accesibilidad_controlador.dart';
 import 'package:sazon_urbano/controllers/auth/autenticacion_controlador.dart';
 import 'package:sazon_urbano/controllers/navigation/navegacion_controlador.dart';
 import 'package:sazon_urbano/controllers/theme/tema_controlador.dart';
@@ -21,6 +22,7 @@ void main() async {
   Get.put(TemaControlador());
   Get.put(AutenticacionControlador());
   Get.put(NavegacionControlador());
+  Get.put(AccesibilidadControlador());
 
   runApp(const MyApp());
 }

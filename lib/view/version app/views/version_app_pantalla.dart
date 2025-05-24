@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sazon_urbano/controllers/accesibilidad/accesibilidad_controlador.dart';
 import 'package:sazon_urbano/utils/app_estilos_texto.dart';
-import 'package:sazon_urbano/widgets/editar%20perfil/perfil_formulario.dart';
+import 'package:sazon_urbano/view/widgets/info_seccion.dart';
 
-class EditarPerfilPantalla extends StatelessWidget {
-  const EditarPerfilPantalla({super.key});
+class VersionAppPantalla extends StatelessWidget {
+  const VersionAppPantalla({super.key});
 
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final screenSize = MediaQuery.of(context).size;
     final accesibilidadCtrl = Get.find<AccesibilidadControlador>();
-
+    
     return Obx(() {
       final agrandar = accesibilidadCtrl.agrandarTexto.value;
       final espaciado = accesibilidadCtrl.espaciadoTexto.value;
@@ -27,13 +28,17 @@ class EditarPerfilPantalla extends StatelessWidget {
           ])
           : const ColorFilter.mode(Colors.transparent, BlendMode.dst),
         child: Scaffold(
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           appBar: AppBar(
             leading: IconButton(
               onPressed: () => Get.back(),
-              icon: Icon(Icons.arrow_back),
+              icon: Icon(
+                Icons.arrow_back_ios,
+                color: isDark ? Colors.white : Colors.black,
+              ),
             ),
             title: Text(
-              'Editar Perfil',
+              'Versión',
               style: AppEstilosTexto.withAccesibilidad(
                 AppEstilosTexto.h3,
                 agrandar: agrandar,
@@ -43,11 +48,17 @@ class EditarPerfilPantalla extends StatelessWidget {
             ),
           ),
           body: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(height: 32),
-                PerfilFormulario(),
-              ],
+            child: Container(
+              padding: EdgeInsets.all(screenSize.width * 0.05),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  InfoSeccion(
+                    titulo: '1.0.0',
+                    contenido: 'Lanzamiento inicial de la aplicación para descubrir restaurantes y sus platillos de la región. Incluye visualización de menús.',
+                  ),
+                ],
+              ),
             ),
           ),
         ),
