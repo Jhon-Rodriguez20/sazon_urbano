@@ -4,6 +4,8 @@ import 'package:sazon_urbano/controllers/accesibilidad/accesibilidad_controlador
 import 'package:sazon_urbano/models/restaurante/restaurante_modelo.dart';
 import 'package:sazon_urbano/utils/app_estilos_texto.dart';
 import 'package:sazon_urbano/view/plato/ver_platos_pantalla.dart';
+import 'package:sazon_urbano/view/widgets/snacbar_personalizado.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class RestauranteDetallePantalla extends StatelessWidget {
   final Restaurante restaurante;
@@ -89,7 +91,6 @@ class RestauranteDetallePantalla extends StatelessWidget {
                                 color: Theme.of(context).textTheme.headlineMedium!.color!,
                               ),
                               textAlign: TextAlign.center,
-                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                         ],
@@ -108,7 +109,6 @@ class RestauranteDetallePantalla extends StatelessWidget {
                                 espaciado: espaciado,
                                 color: Theme.of(context).textTheme.headlineMedium!.color!,
                               ),
-                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                         ],
@@ -127,7 +127,6 @@ class RestauranteDetallePantalla extends StatelessWidget {
                                 espaciado: espaciado,
                                 color: Theme.of(context).textTheme.headlineMedium!.color!,
                               ),
-                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                         ],
@@ -168,7 +167,16 @@ class RestauranteDetallePantalla extends StatelessWidget {
                   SizedBox(width: screenWidth * 0.04),
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        final direccion = Uri.encodeComponent(restaurante.direccion);
+                        final url = Uri.parse('https://www.google.com/maps/search/?api=1&query=$direccion');
+
+                        if (await canLaunchUrl(url)) {
+                          await launchUrl(url, mode: LaunchMode.externalApplication);
+                        } else {
+                          SnackbarPersonalizado.mostrarError('No se pudo abrir Google Maps');
+                        }
+                      },
                       style: ElevatedButton.styleFrom(
                         padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
                         backgroundColor: Theme.of(context).primaryColor,

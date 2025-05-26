@@ -97,17 +97,22 @@ class PlatoDetallePantalla extends StatelessWidget {
 
                       // Dirección (en su propia fila)
                       Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Icon(Icons.location_on, color: Theme.of(context).primaryColor),
+                          Icon(Icons.description_outlined, color: Theme.of(context).primaryColor),
                           SizedBox(width: 8),
                           Expanded(
-                            child: Text(
-                              plato.descripcion,
-                              style: AppEstilosTexto.withColor(
-                                AppEstilosTexto.bodyMedium,
-                                Theme.of(context).textTheme.headlineMedium!.color!,
-                              ),
-                              overflow: TextOverflow.ellipsis,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  plato.descripcion,
+                                  style: AppEstilosTexto.withColor(
+                                    AppEstilosTexto.bodyMedium,
+                                    Theme.of(context).textTheme.headlineMedium!.color!,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],

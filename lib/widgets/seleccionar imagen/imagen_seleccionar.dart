@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sazon_urbano/utils/app_estilos_texto.dart';
 import 'package:sazon_urbano/utils/imagen_picker.dart';
+import 'dart:typed_data';
+import 'package:image/image.dart' as img;
 
 class ImagenSeleccionar extends StatefulWidget {
   final void Function(File?) onImageSelected;
@@ -96,10 +98,12 @@ class _ImagenSeleccionarState extends State<ImagenSeleccionar> {
     Get.back();
     final imagen = await ImagenPickerUtil.seleccionarImagen(desdeCamara: desdeCamara);
     if (imagen != null) {
+      final imagenRedimensionada = await redimensionarImagen(imagen, 300, 199);
+
       setState(() {
-        _imagen = imagen;
+        _imagen = imagenRedimensionada;
       });
-      widget.onImageSelected(imagen);
+      widget.onImageSelected(imagenRedimensionada);
     }
   }
 
@@ -212,5 +216,20 @@ class _ImagenSeleccionarState extends State<ImagenSeleccionar> {
         ),
       ),
     );
+  }
+
+  Future<File> redimensionarImagen(File imagenOriginal, int ancho, int alto) async {
+    final bytes = await imagenOriginal.readAsBytes();
+    final imagen = img.decodeImage(Uint8List.fromList(bytes));
+
+    if (imagen == null) return imagenOriginal;
+
+    final redimensionada = img.copyResize(imagen, width: ancho, height: alto);
+    final nuevaRuta = imagenOriginal.path.replaceFirst('.jpg', '_resized.jpg');
+
+    final nuevoArchivo = File(nuevaRuta)
+      ..writeAsBytesSync(img.encodeJpg(redimensionada, quality: 85));
+
+    return nuevoArchivo;
   }
 }

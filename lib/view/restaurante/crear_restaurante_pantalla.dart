@@ -6,7 +6,9 @@ import 'package:sazon_urbano/controllers/restaurante/restaurante_controlador.dar
 import 'package:sazon_urbano/controllers/accesibilidad/accesibilidad_controlador.dart';
 import 'package:sazon_urbano/utils/app_estilos_texto.dart';
 import 'package:sazon_urbano/view/widgets/formulario_personalizado.dart';
+import 'package:sazon_urbano/view/widgets/snacbar_personalizado.dart';
 import 'package:sazon_urbano/widgets/seleccionar imagen/imagen_seleccionar.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CrearRestaurantePantalla extends StatefulWidget {
   const CrearRestaurantePantalla({super.key});
@@ -94,16 +96,7 @@ class _CrearRestaurantePantallaState extends State<CrearRestaurantePantalla> {
                       validator: (value) =>
                         value == null || value.isEmpty ? 'Por favor ingrese el NIT' : null,
                     ),
-                    const SizedBox(height: 16),
 
-                    FormularioPersonalizado(
-                      label: 'Dirección',
-                      prefixIcon: Icons.location_on_outlined,
-                      keyboardType: TextInputType.streetAddress,
-                      controller: _direccionController,
-                      validator: (value) =>
-                        value == null || value.isEmpty ? 'Por favor ingrese la dirección' : null,
-                    ),
                     const SizedBox(height: 16),
 
                     FormularioPersonalizado(
@@ -122,6 +115,49 @@ class _CrearRestaurantePantallaState extends State<CrearRestaurantePantalla> {
                       inputFormatters: [
                         FilteringTextInputFormatter.digitsOnly,
                         LengthLimitingTextInputFormatter(10),
+                      ],
+                    ),
+
+                                        const SizedBox(height: 16),
+
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        FormularioPersonalizado(
+                          label: 'Dirección',
+                          prefixIcon: Icons.location_on_outlined,
+                          keyboardType: TextInputType.streetAddress,
+                          controller: _direccionController,
+                          validator: (value) =>
+                            value == null || value.isEmpty ? 'Por favor ingrese la dirección' : null,
+                        ),
+                        const SizedBox(height: 6),
+                        InkWell(
+                          onTap: () async {
+                            final url = Uri.parse('https://www.google.com/maps');
+                            if (await canLaunchUrl(url)) {
+                              await launchUrl(url, mode: LaunchMode.externalApplication);
+                            } else {
+                              SnackbarPersonalizado.mostrarError('No se pudo abrir Google Maps');
+                            }
+                          },
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Icon(Icons.map_outlined, color: Theme.of(context).primaryColor),
+                              SizedBox(width: 8),
+                              Expanded(
+                                child: Text(
+                                  'Haz click para elegir la dirección en Google Maps.',
+                                  style: AppEstilosTexto.withColor(
+                                    AppEstilosTexto.bodySmall,
+                                    isDark ? Colors.grey[400]! : Colors.grey[600]!,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                     const SizedBox(height: 24),
