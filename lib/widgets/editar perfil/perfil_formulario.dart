@@ -48,7 +48,7 @@ class PerfilFormulario extends StatelessWidget {
                         _campoDecorado(
                           context,
                           FormularioPersonalizado(
-                            label: 'Nombre Completo',
+                            label: 'nombre_completo'.tr,
                             prefixIcon: Icons.person_outline,
                             controller: usuarioCtrl.nombreCtrl,
                           ),
@@ -59,15 +59,14 @@ class PerfilFormulario extends StatelessWidget {
                         _campoDecorado(
                           context,
                           FormularioPersonalizado(
-                            label: 'Correo',
+                            label: 'correo'.tr,
                             prefixIcon: Icons.email_outlined,
                             keyboardType: TextInputType.emailAddress,
                             controller: usuarioCtrl.correoCtrl,
                           ),
                         ),
 
-                        const SizedBox(height: 32),
-
+                        SizedBox(height: 32),
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
@@ -95,7 +94,7 @@ class PerfilFormulario extends StatelessWidget {
                                     ),
                                   )
                                 : Text(
-                                    'Guardar Cambios',
+                                    'guardar_cambios'.tr,
                                     style: AppEstilosTexto.withAccesibilidad(
                                       AppEstilosTexto.buttonMedium,
                                       agrandar: agrandar,

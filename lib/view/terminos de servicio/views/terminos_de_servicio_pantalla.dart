@@ -38,7 +38,7 @@ class TerminosDeServicioPantalla extends StatelessWidget {
               ),
             ),
             title: Text(
-              'Términos de Servicio',
+              'terminos_de_servicio'.tr,
               style: AppEstilosTexto.withAccesibilidad(
                 AppEstilosTexto.h3,
                 agrandar: agrandar,
@@ -54,28 +54,28 @@ class TerminosDeServicioPantalla extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   InfoSeccion(
-                    titulo: 'Compartición de información con terceros',
-                    contenido: 'No vendemos tu información personal. Sin embargo, podríamos compartir datos agregados y anónimos con aliados turísticos para mejorar la calidad de nuestras recomendaciones.',
+                    titulo: 'comparticion_informacion'.tr,
+                    contenido: 'contenido_comparticion_informacion'.tr,
                   ),
 
                   InfoSeccion(
-                    titulo: 'Seguridad de la información',
-                    contenido: 'Nos comprometemos a proteger tu información mediante medidas técnicas y organizativas. Aunque ningún sistema es 100% seguro, trabajamos constantemente para prevenir accesos no autorizados.',
+                    titulo: 'seguridad_informacion'.tr,
+                    contenido: 'contenido_seguridad_informacion'.tr,
                   ),
 
                   InfoSeccion(
-                    titulo: 'Tus derechos y control sobre tus datos',
-                    contenido: 'Puedes acceder, modificar o eliminar tu información personal desde la sección de perfil. También puedes solicitarnos que dejemos de utilizar tus datos en cualquier momento.',
+                    titulo: 'derechos_control_datos'.tr,
+                    contenido: 'contenido_derechos_control_datos'.tr,
                   ),
 
                   InfoSeccion(
-                    titulo: 'Cambios a estos términos',
-                    contenido: 'Nos reservamos el derecho de actualizar estos términos. Si realizamos cambios significativos, te notificaremos a través de la aplicación.',
+                    titulo: 'cambios_terminos'.tr,
+                    contenido: 'contenido_cambios_terminos'.tr,
                   ),
 
                   SizedBox(height: 24),
                   Text(
-                    'Última actualización: Mayo 28 2025',
+                    'ultima_actualizacion_terminos'.tr,
                     style: AppEstilosTexto.withAccesibilidad(
                       AppEstilosTexto.bodySmall,
                       agrandar: agrandar,

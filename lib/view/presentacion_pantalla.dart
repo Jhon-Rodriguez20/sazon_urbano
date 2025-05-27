@@ -17,13 +17,13 @@ class _PresentacionPantallaState extends State<PresentacionPantalla> {
 
   final List<OnboardingItem> _items = [
     OnboardingItem(
-      title: 'Platillos Típicos',
-      description: 'Descubre los sabores auténticos de nuestra cultura con los mejores platillos tradicionales.',
+      title: 'platillos_tipicos'.tr,
+      description: 'descripcion_platillos_tipicos'.tr,
       image: 'assets/images/intro.png',
     ),
     OnboardingItem(
-      title: 'Restaurantes Nativos',
-      description: 'Apoya lo local disfrutando de comidas únicas preparadas por restaurantes auténticos de la región.',
+      title: 'restaurantes_nativos'.tr,
+      description: 'descripcion_restaurantes_nativos'.tr,
       image: 'assets/images/intro1.png',
     ),
   ];
@@ -111,7 +111,7 @@ class _PresentacionPantallaState extends State<PresentacionPantalla> {
               TextButton(
                 onPressed: () => _handleGetStarted(),
                 child: Text(
-                  "Saltar",
+                  "saltar_contenido".tr,
                   style: AppEstilosTexto.withColor(
                     AppEstilosTexto.buttonMedium,
                     isDark? Colors.grey[400]! : Colors.grey[600]!,
@@ -139,7 +139,7 @@ class _PresentacionPantallaState extends State<PresentacionPantalla> {
                 ),
               ),
               child: Text(
-                _currentPage < _items.length - 1 ? 'Siguiente' : 'Empezar',
+                _currentPage < _items.length - 1 ? 'siguiente_boton'.tr : 'empezar_boton'.tr,
                 style: AppEstilosTexto.withColor(
                   AppEstilosTexto.buttonMedium,
                   Colors.white),

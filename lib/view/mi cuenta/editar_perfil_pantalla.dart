@@ -33,7 +33,7 @@ class EditarPerfilPantalla extends StatelessWidget {
               icon: Icon(Icons.arrow_back),
             ),
             title: Text(
-              'Editar Perfil',
+              'editar_perfil'.tr,
               style: AppEstilosTexto.withAccesibilidad(
                 AppEstilosTexto.h3,
                 agrandar: agrandar,

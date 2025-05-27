@@ -23,7 +23,10 @@ class PlatoGrid extends StatelessWidget {
             .toList();
 
         if (platosFiltrados.isEmpty) {
-          return const Center(child: Text('No hay platos disponibles.'));
+          return Center(
+             child:Text(
+            'platos_no_disponibles'.tr
+          ));
         }
 
         return GridView.builder(

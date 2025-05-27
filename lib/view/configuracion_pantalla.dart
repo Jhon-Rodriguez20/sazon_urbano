@@ -41,7 +41,7 @@ class ConfiguracionPantalla extends StatelessWidget {
               )
             ),
             title: Text(
-              'Configuración',
+              'configuracion'.tr,
               style: AppEstilosTexto.withAccesibilidad(
                 AppEstilosTexto.h3,
                 agrandar: agrandar,
@@ -56,43 +56,43 @@ class ConfiguracionPantalla extends StatelessWidget {
               children: [
                 _buildSection(
                   context,
-                  'Apariencia',
+                  'apariencia'.tr,
                   [
                     _buildThemeToggle(context),
                   ],
                 ),
-                _buildSection(context, 'Privacidad', [
+                _buildSection(context, 'privacidad'.tr, [
                   _buildNavigationTile(
                     context,
-                    'Políticas de Privacidad',
-                    'Ver nuestras políticas de Privacidad',
+                    'politicas_de_privacidad'.tr,
+                    'ver_nuestras_politicas_de_privacidad'.tr,
                     Icons.privacy_tip_outlined,
                     onTap: ()=> Get.to(() => PoliticasPrivacidadPantalla()),
                   ),
                   _buildNavigationTile(
                     context,
-                    'Términos de Servicio',
-                    'Leer sobre nuestros términos de servicio',
+                    'terminos_de_servicio'.tr,
+                    'leer_sobre_terminos_servicio'.tr,
                     Icons.description_outlined,
                     onTap: ()=> Get.to(() => TerminosDeServicioPantalla()),
                   ),
                 ],),
 
-                _buildSection(context, 'Accesibilidad', [
+                _buildSection(context, 'accesibilidad'.tr, [
                   _buildNavigationTile(
                   context,
-                  'Menú de accesibilidad',
-                  'Establece las opciones que te parezcan mejor para una mejor experiencia de usuario.',
+                  'menu_de_accesibilidad'.tr,
+                  'mensaje_accesibilidad'.tr,
                   Icons.accessibility_outlined,
                   onTap: () => Get.to(() => AccesibilidadPantalla()),
                   ),
                 ],),
 
-                _buildSection(context, 'A cerca de', [
+                _buildSection(context, 'a_cerca_de'.tr, [
                   _buildNavigationTile(
                     context,
-                    'Versión de App',
-                    '1.0.0',
+                    'version_app'.tr,
+                    'version'.tr,
                     Icons.info_outline,
                     onTap: () => Get.to(() => VersionAppPantalla()),
                   ),
@@ -157,7 +157,7 @@ class ConfiguracionPantalla extends StatelessWidget {
             color: Theme.of(context).primaryColor,
           ),
           title: Text(
-            'Tema preferido',
+            'tema_preferido'.tr,
             style: AppEstilosTexto.withAccesibilidad(
               AppEstilosTexto.bodyMedium,
               agrandar: agrandar,

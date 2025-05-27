@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sazon_urbano/controllers/accesibilidad/accesibilidad_controlador.dart';
+import 'package:sazon_urbano/controllers/idioma/idioma_controlador.dart';
 import 'package:sazon_urbano/controllers/restaurante/restaurante_controlador.dart';
 import 'package:sazon_urbano/security/seguridad_sesion.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -29,11 +30,11 @@ class _HomePantallaState extends State<HomePantalla> {
   String obtenerSaludo() {
     final horaActual = DateTime.now().hour;
     if (horaActual >= 5 && horaActual < 12) {
-      return 'Buenos días';
+      return 'greeting_morning'.tr;
     } else if (horaActual >= 12 && horaActual < 18) {
-      return 'Buenas tardes';
+      return 'greeting_afternoon'.tr;
     } else {
-      return 'Buenas noches';
+      return 'greeting_evening'.tr;
     }
   }
 
@@ -42,7 +43,7 @@ class _HomePantallaState extends State<HomePantalla> {
     final usuario = FirebaseAuth.instance.currentUser;
     final accesibilidadCtrl = Get.find<AccesibilidadControlador>();
     final isDark = Theme.of(context).brightness == Brightness.dark;
-
+    final idiomaCtrl = Get.find<IdiomaControlador>();
 
     if (usuario == null) {
       return const Scaffold(
@@ -75,7 +76,7 @@ class _HomePantallaState extends State<HomePantalla> {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(16),
+                  padding: EdgeInsets.all(16),
                   child: Row(
                     children: [
                       AvatarUsuario(radius: 20),
@@ -102,6 +103,41 @@ class _HomePantallaState extends State<HomePantalla> {
                             ),
                           ),
                         ],
+                      ),
+                      Spacer(),
+                      DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+                          value: idiomaCtrl.idiomaActual.value,
+                          icon: const Icon(Icons.arrow_drop_down),
+                          onChanged: (String? nuevoCodigo) {
+                            if (nuevoCodigo != null) {
+                              idiomaCtrl.cambiarIdioma(nuevoCodigo);
+                            }
+                          },
+                          items: idiomaCtrl.idiomas.map((idioma) {
+                            return DropdownMenuItem<String>(
+                              value: idioma['codigo'],
+                              child: Row(
+                                children: [
+                                  Text(
+                                    idioma['bandera'] as String,
+                                    style: const TextStyle(fontSize: 20),
+                                  ),
+                                  SizedBox(width: 8),
+                                  Text(
+                                    idioma['nombre'] as String,
+                                    style: AppEstilosTexto.withAccesibilidad(
+                                      AppEstilosTexto.bodyMedium,
+                                      agrandar: accesibilidadCtrl.agrandarTexto.value,
+                                      espaciado: accesibilidadCtrl.espaciadoTexto.value,
+                                      color: isDark ? Colors.white : Colors.black,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }).toList(),
+                        ),
                       ),
                     ],
                   ),

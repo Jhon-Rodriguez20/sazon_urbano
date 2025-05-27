@@ -11,8 +11,8 @@ class PromocionBanner extends StatelessWidget {
     final accesibilidadCtrl = Get.find<AccesibilidadControlador>();
 
     return Container(
-      margin: EdgeInsets.all(16),
-      padding: EdgeInsets.all(16),
+      margin: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Theme.of(context).primaryColor,
         borderRadius: BorderRadius.circular(12),
@@ -24,52 +24,44 @@ class PromocionBanner extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Los mejores',
+                  'promo_best'.tr,
                   style: AppEstilosTexto.withAccesibilidad(
                     AppEstilosTexto.h3,
                     agrandar: accesibilidadCtrl.agrandarTexto.value,
                     espaciado: accesibilidadCtrl.espaciadoTexto.value,
-                    color: Colors.white
+                    color: Colors.white,
                   ),
                 ),
                 Text(
-                  'Restaurantes',
+                  'promo_restaurants'.tr,
                   style: AppEstilosTexto.withAccesibilidad(
                     AppEstilosTexto.withColor(
-                      AppEstilosTexto.withWeight(AppEstilosTexto.h2, FontWeight.bold,),
-                    Colors.white
+                      AppEstilosTexto.withWeight(AppEstilosTexto.h2, FontWeight.bold),
+                      Colors.white,
                     ),
                     agrandar: accesibilidadCtrl.agrandarTexto.value,
                     espaciado: accesibilidadCtrl.espaciadoTexto.value,
-                    color: Colors.white
+                    color: Colors.white,
                   ),
                 ),
                 Text(
-                  'de la región',
+                  'promo_region'.tr,
                   style: AppEstilosTexto.withAccesibilidad(
                     AppEstilosTexto.h3,
                     agrandar: accesibilidadCtrl.agrandarTexto.value,
                     espaciado: accesibilidadCtrl.espaciadoTexto.value,
-                    color: Colors.white
+                    color: Colors.white,
                   ),
                 ),
               ],
             ),
           ),
-          ElevatedButton(
-            onPressed: (){
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.white,
-              foregroundColor: Colors.black,
-              padding: EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 12,
-              ),
-            ),
-            child: Text(
-              'Verlos',
-              style: AppEstilosTexto.buttonMedium,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: const Icon(
+              Icons.restaurant_outlined,
+              color: Colors.white,
+              size: 50,
             ),
           ),
         ],

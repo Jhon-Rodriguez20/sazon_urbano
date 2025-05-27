@@ -12,13 +12,25 @@ class NavbarPersonalizado extends StatelessWidget {
     final rol = GetStorage().read('idRol') ?? '3';
 
     final items = <BottomNavigationBarItem>[
-      const BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: 'Home'),
+      BottomNavigationBarItem(
+        icon: const Icon(Icons.home_outlined),
+        label: 'nav_home'.tr,
+      ),
       if (rol == '1') ...[
-        const BottomNavigationBarItem(icon: Icon(Icons.person_add), label: 'Crear Gerente'),
+        BottomNavigationBarItem(
+          icon: const Icon(Icons.person_add),
+          label: 'nav_create_manager'.tr,
+        ),
       ] else if (rol == '2') ...[
-        const BottomNavigationBarItem(icon: Icon(Icons.restaurant), label: 'Crear Restaurante'),
+        BottomNavigationBarItem(
+          icon: const Icon(Icons.restaurant),
+          label: 'nav_create_restaurant'.tr,
+        ),
       ],
-      const BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: 'Mi Cuenta'),
+      BottomNavigationBarItem(
+        icon: const Icon(Icons.person_outline),
+        label: 'nav_account'.tr,
+      ),
     ];
 
     return Obx(() {

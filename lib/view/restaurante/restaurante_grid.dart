@@ -14,7 +14,7 @@ class RestauranteGrid extends StatelessWidget {
       final lista = controlador.restaurantes;
 
       if (lista.isEmpty) {
-        return Center(child: Text("No hay restaurantes disponibles"));
+        return Center(child: Text('restaurantes_no_disponibles'.tr));
       }
 
       return GridView.builder(

@@ -12,14 +12,14 @@ class DefinicionesSeccion extends StatelessWidget {
     final accesibilidadCtrl = Get.find<AccesibilidadControlador>();
     final agrandar = accesibilidadCtrl.agrandarTexto.value;
     final espaciado = accesibilidadCtrl.espaciadoTexto.value;
-    
+
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Definiciones',
+            'definiciones_titulo'.tr,
             style: AppEstilosTexto.withAccesibilidad(
               AppEstilosTexto.h3,
               agrandar: agrandar,
@@ -27,20 +27,20 @@ class DefinicionesSeccion extends StatelessWidget {
               color: Theme.of(context).textTheme.bodyLarge!.color!,
             ),
           ),
-          SizedBox(height: 16,),
+          const SizedBox(height: 16),
           DefinicionTarjeta(
-            titulo: 'Agrandar texto',
-            icono: Icons.format_size_outlined
+            titulo: 'agrandar_texto',
+            icono: Icons.format_size_outlined,
           ),
-          SizedBox(height: 12,),
+          const SizedBox(height: 12),
           DefinicionTarjeta(
-            titulo: 'Activar desaturación',
-            icono: Icons.invert_colors_off_outlined
+            titulo: 'activar_desaturacion',
+            icono: Icons.invert_colors_off_outlined,
           ),
-          SizedBox(height: 12,),
+          const SizedBox(height: 12),
           DefinicionTarjeta(
-            titulo: 'Espaciado de texto',
-            icono: Icons.space_bar_outlined
+            titulo: 'espaciado_texto',
+            icono: Icons.space_bar_outlined,
           ),
         ],
       ),

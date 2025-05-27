@@ -53,7 +53,7 @@ class _CrearGerentePantallaState extends State<CrearGerentePantalla> {
                   children: [
                     SizedBox(height: 35),
                     Text(
-                      'Crear Gerente',
+                      'crear_gerente'.tr,
                       style: AppEstilosTexto.withAccesibilidad(
                         AppEstilosTexto.h1,
                         agrandar: agrandar,
@@ -61,9 +61,9 @@ class _CrearGerentePantallaState extends State<CrearGerentePantalla> {
                         color: Theme.of(context).textTheme.bodyLarge!.color!,
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    SizedBox(height: 8),
                     Text(
-                      'Crea un gerente para un restaurante',
+                      'crear_gerente_descripcion'.tr,
                       style: AppEstilosTexto.withAccesibilidad(
                         AppEstilosTexto.bodyLarge,
                         agrandar: agrandar,
@@ -71,57 +71,59 @@ class _CrearGerentePantallaState extends State<CrearGerentePantalla> {
                         color: isDark ? Colors.grey[400]! : Colors.grey[600]!,
                       ),
                     ),
-                    const SizedBox(height: 40),
+                    SizedBox(height: 40),
 
                     FormularioPersonalizado(
-                      label: 'Nombre completo',
+                      label: 'nombre_completo'.tr,
                       prefixIcon: Icons.person_outline,
                       keyboardType: TextInputType.name,
                       controller: _nameController,
                       validator: (value) {
-                        if (value == null || value.isEmpty) return 'Por favor ingrese el nombre';
+                        if (value == null || value.isEmpty) return 'error_nombre'.tr;
                         return null;
                       },
                     ),
-                    const SizedBox(height: 16),
+                    SizedBox(height: 16),
                     FormularioPersonalizado(
-                      label: 'Correo',
+                      label: 'correo'.tr,
                       prefixIcon: Icons.email_outlined,
                       keyboardType: TextInputType.emailAddress,
                       controller: _emailController,
                       validator: (value) {
-                        if (value == null || value.isEmpty) return 'Por favor ingrese su correo';
-                        if (!GetUtils.isEmail(value)) return 'Por favor ingrese un correo válido';
+                        if (value == null || value.isEmpty) return 'error_correo'.tr;
+                        if (!GetUtils.isEmail(value)) return 'error_correo_valido'.tr;
                         return null;
                       },
                     ),
-                    const SizedBox(height: 16),
+
+                    SizedBox(height: 16),
                     FormularioPersonalizado(
-                      label: 'Contraseña',
+                      label: 'contrasena'.tr,
                       prefixIcon: Icons.lock_outline,
                       keyboardType: TextInputType.visiblePassword,
                       isPassword: true,
                       controller: _passwordController,
                       validator: (value) {
-                        if (value == null || value.isEmpty) return 'Por favor ingrese la contraseña';
-                        if (value.length < 6) return 'La contraseña debe tener al menos 6 caracteres';
+                        if (value == null || value.isEmpty) return 'error_contrasena'.tr;
+                        if (value.length < 6) return 'error_contrasena_corta'.tr;
                         return null;
                       },
                     ),
-                    const SizedBox(height: 16),
+
+                    SizedBox(height: 16),
                     FormularioPersonalizado(
-                      label: 'Confirmar Contraseña',
+                      label: 'confirmar_contrasena'.tr,
                       prefixIcon: Icons.password_outlined,
                       keyboardType: TextInputType.visiblePassword,
                       isPassword: true,
                       controller: _confirmPasswordController,
                       validator: (value) {
-                        if (value == null || value.isEmpty) return 'Por favor confirme la contraseña';
-                        if (value != _passwordController.text) return 'Las contraseñas no coinciden';
+                        if (value == null || value.isEmpty) return 'error_confirmar_contrasena'.tr;
+                        if (value != _passwordController.text) return 'error_contrasenas_no_coinciden'.tr;
                         return null;
                       },
                     ),
-                    const SizedBox(height: 24),
+                    SizedBox(height: 24),
 
                     SizedBox(
                       width: double.infinity,
@@ -139,7 +141,7 @@ class _CrearGerentePantallaState extends State<CrearGerentePantalla> {
                               idRol: '2',
                             );
                           } catch (e) {
-                            Get.snackbar('Error', e.toString());
+                            Get.snackbar('error'.tr, e.toString());
                           }
                         },
                         style: ElevatedButton.styleFrom(
@@ -152,7 +154,7 @@ class _CrearGerentePantallaState extends State<CrearGerentePantalla> {
                         child: _crearGerenteControlador.cargando.value
                           ? const CircularProgressIndicator(color: Colors.white)
                           : Text(
-                              'Crear Gerente',
+                              'crear_gerente'.tr,
                               style: AppEstilosTexto.withAccesibilidad(
                                 AppEstilosTexto.buttonMedium,
                                 agrandar: agrandar,
@@ -162,7 +164,7 @@ class _CrearGerentePantallaState extends State<CrearGerentePantalla> {
                             ),
                       )),
                     ),
-                    const SizedBox(height: 24),
+                    SizedBox(height: 24),
                   ],
                 ),
               ),

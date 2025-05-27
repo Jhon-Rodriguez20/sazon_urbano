@@ -44,7 +44,7 @@ class _CrearCuentaPantallaState extends State<CrearCuentaPantalla> {
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  'Crear Cuenta',
+                  'crear_cuenta'.tr,
                   style: AppEstilosTexto.withColor(
                     AppEstilosTexto.h1,
                     Theme.of(context).textTheme.bodyLarge!.color!,
@@ -52,7 +52,7 @@ class _CrearCuentaPantallaState extends State<CrearCuentaPantalla> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'Crea una cuenta para empezar',
+                  'crear_cuenta_empezar'.tr,
                   style: AppEstilosTexto.withColor(
                     AppEstilosTexto.bodyLarge,
                     isDark ? Colors.grey[400]! : Colors.grey[600]!,
@@ -61,50 +61,50 @@ class _CrearCuentaPantallaState extends State<CrearCuentaPantalla> {
                 const SizedBox(height: 40),
 
                 FormularioPersonalizado(
-                  label: 'Nombre completo',
+                  label: 'nombre_completo'.tr,
                   prefixIcon: Icons.person_outline,
                   keyboardType: TextInputType.name,
                   controller: _nameController,
                   validator: (value) {
-                    if (value == null || value.isEmpty) return 'Por favor ingrese su nombre';
+                    if (value == null || value.isEmpty) return 'error_nombre'.tr;
                     return null;
                   },
                 ),
                 const SizedBox(height: 16),
                 FormularioPersonalizado(
-                  label: 'Correo',
+                  label: 'correo'.tr,
                   prefixIcon: Icons.email_outlined,
                   keyboardType: TextInputType.emailAddress,
                   controller: _emailController,
                   validator: (value) {
-                    if (value == null || value.isEmpty) return 'Por favor ingrese su correo';
-                    if (!GetUtils.isEmail(value)) return 'Por favor ingrese un correo válido';
+                    if (value == null || value.isEmpty) return 'error_correo'.tr;
+                    if (!GetUtils.isEmail(value)) return 'error_correo_valido'.tr;
                     return null;
                   },
                 ),
                 const SizedBox(height: 16),
                 FormularioPersonalizado(
-                  label: 'Contraseña',
+                  label: 'contrasena'.tr,
                   prefixIcon: Icons.lock_outline,
                   keyboardType: TextInputType.visiblePassword,
                   isPassword: true,
                   controller: _passwordController,
                   validator: (value) {
-                    if (value == null || value.isEmpty) return 'Por favor ingrese su contraseña';
-                    if (value.length < 6) return 'La contraseña debe tener al menos 6 caracteres';
+                    if (value == null || value.isEmpty) return 'error_contrasena'.tr;
+                    if (value.length < 6) return 'error_contrasena_corta'.tr;
                     return null;
                   },
                 ),
                 const SizedBox(height: 16),
                 FormularioPersonalizado(
-                  label: 'Confirmar Contraseña',
+                  label: 'confirmar_contrasena'.tr,
                   prefixIcon: Icons.password_outlined,
                   keyboardType: TextInputType.visiblePassword,
                   isPassword: true,
                   controller: _confirmPasswordController,
                   validator: (value) {
-                    if (value == null || value.isEmpty) return 'Por favor confirme su contraseña';
-                    if (value != _passwordController.text) return 'Las contraseñas no coinciden';
+                    if (value == null || value.isEmpty) return 'error_confirmar_contrasena'.tr;
+                    if (value != _passwordController.text) return 'error_contrasenas_no_coinciden'.tr;
                     return null;
                   },
                 ),
@@ -126,7 +126,7 @@ class _CrearCuentaPantallaState extends State<CrearCuentaPantalla> {
                           idRol: '3',
                         );
                       } catch (e) {
-                        Get.snackbar('Error', e.toString());
+                        Get.snackbar('error'.tr, e.toString());
                       }
                     },
                     style: ElevatedButton.styleFrom(
@@ -139,7 +139,7 @@ class _CrearCuentaPantallaState extends State<CrearCuentaPantalla> {
                     child: _usuarioControlador.cargando.value
                       ? const CircularProgressIndicator(color: Colors.white)
                       : Text(
-                          'Crear Cuenta',
+                          'crear_cuenta'.tr,
                           style: AppEstilosTexto.withColor(
                             AppEstilosTexto.buttonMedium,
                             Colors.white,
@@ -153,7 +153,7 @@ class _CrearCuentaPantallaState extends State<CrearCuentaPantalla> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      '¿Ya tienes una cuenta?',
+                      'tienes_cuenta'.tr,
                       style: AppEstilosTexto.withColor(
                         AppEstilosTexto.bodyMedium,
                         isDark ? Colors.grey[400]! : Colors.grey[600]!,
@@ -162,7 +162,7 @@ class _CrearCuentaPantallaState extends State<CrearCuentaPantalla> {
                     TextButton(
                       onPressed: () => Get.off(() => IniciarSesionPantalla()),
                       child: Text(
-                        'Iniciar Sesión',
+                        'iniciar_sesion_boton'.tr,
                         style: AppEstilosTexto.withColor(
                           AppEstilosTexto.buttonMedium,
                           Theme.of(context).primaryColor,

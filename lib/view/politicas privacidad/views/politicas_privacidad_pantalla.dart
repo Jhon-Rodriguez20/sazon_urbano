@@ -38,7 +38,7 @@ class PoliticasPrivacidadPantalla extends StatelessWidget {
               ),
             ),
             title: Text(
-              'Políticas de Privacidad',
+              'politicas_privacidad'.tr,
               style: AppEstilosTexto.withAccesibilidad(
                 AppEstilosTexto.h3,
                 agrandar: agrandar,
@@ -54,16 +54,16 @@ class PoliticasPrivacidadPantalla extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   InfoSeccion(
-                    titulo: 'Información que recolectamos',
-                    contenido: 'Recolectamos información que nos provees, incluyendo su nombre y correo electrónico.',
+                    titulo: 'informacion_recolectamos'.tr,
+                    contenido: 'contenido_informacion_recolectamos'.tr,
                   ),
                   InfoSeccion(
-                    titulo: '¿Cómo usamos tu información personal?',
-                    contenido: 'Usaremos tu información personal para recomendarte tus restaurantes preferidos basándonos en tu navegación por la aplicación.',
+                    titulo: 'como_usamos_tu_informacion'.tr,
+                    contenido: 'contenido_como_usamos_tu_informacion'.tr,
                   ),
                   SizedBox(height: 24),
                   Text(
-                    'Última actualización: Mayo 28 2025',
+                    'ultima_actualizacion_politicas'.tr,
                     style: AppEstilosTexto.withAccesibilidad(
                       AppEstilosTexto.bodySmall,
                       agrandar: agrandar,

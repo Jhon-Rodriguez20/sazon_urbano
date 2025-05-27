@@ -33,7 +33,7 @@ class AccesibilidadPantalla extends StatelessWidget {
               icon: Icon(Icons.arrow_back, color: isDark ? Colors.white : Colors.black),
             ),
             title: Text(
-              'Accesibilidad',
+              'accesibilidad'.tr,
               style: AppEstilosTexto.withAccesibilidad(
                 AppEstilosTexto.h3,
                 agrandar: agrandar,
@@ -46,7 +46,7 @@ class AccesibilidadPantalla extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             children: [
               Text(
-                'Preferencias de visualización',
+                'preferencias_visualizacion'.tr,
                 style: AppEstilosTexto.withAccesibilidad(
                   AppEstilosTexto.h3,
                   agrandar: agrandar,
@@ -58,7 +58,7 @@ class AccesibilidadPantalla extends StatelessWidget {
 
               SwitchListTile(
                 title: Text(
-                    "Agrandar texto",
+                    "agrandar_texto".tr,
                     style: AppEstilosTexto.withAccesibilidad(
                       AppEstilosTexto.bodyMedium,
                       agrandar: agrandar,
@@ -71,7 +71,7 @@ class AccesibilidadPantalla extends StatelessWidget {
               ),
               SwitchListTile(
                 title: Text(
-                    "Activar desaturación",
+                    "activar_desaturacion".tr,
                     style: AppEstilosTexto.withAccesibilidad(
                       AppEstilosTexto.bodyMedium,
                       agrandar: agrandar,
@@ -84,7 +84,7 @@ class AccesibilidadPantalla extends StatelessWidget {
               ),
               SwitchListTile(
                 title: Text(
-                    "Espaciado de texto",
+                    "espaciado_texto".tr,
                     style: AppEstilosTexto.withAccesibilidad(
                       AppEstilosTexto.bodyMedium,
                       agrandar: agrandar,
@@ -98,7 +98,7 @@ class AccesibilidadPantalla extends StatelessWidget {
 
               SizedBox(height: 54),
               Text(
-                '¿Qué significan estas opciones?',
+                'que_significan_opciones'.tr,
                 style: AppEstilosTexto.withAccesibilidad(
                   AppEstilosTexto.h3,
                   agrandar: agrandar,

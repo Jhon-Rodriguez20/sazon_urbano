@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sazon_urbano/controllers/accesibilidad/accesibilidad_controlador.dart';
 import 'package:sazon_urbano/models/plato/plato_modelo.dart';
 import 'package:sazon_urbano/utils/app_estilos_texto.dart';
 import 'package:sazon_urbano/view/plato/plato_detalle_pantalla.dart';
@@ -12,6 +13,7 @@ class PlatoTarjeta extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final accesibilidadCtrl = Get.find<AccesibilidadControlador>();
 
     return GestureDetector(
       onTap: () {
@@ -58,10 +60,13 @@ class PlatoTarjeta extends StatelessWidget {
               children: [
                 Text(
                   plato.nombrePlato,
-                  style: AppEstilosTexto.withColor(
-                    AppEstilosTexto.withWeight(
-                        AppEstilosTexto.h3, FontWeight.bold),
-                    Theme.of(context).textTheme.bodyLarge!.color!,
+                  style: AppEstilosTexto.withAccesibilidad(
+                    AppEstilosTexto.withColor(
+                      AppEstilosTexto.withWeight(AppEstilosTexto.h3, FontWeight.bold,),
+                      Theme.of(context).textTheme.bodyLarge!.color!
+                    ),
+                    agrandar: accesibilidadCtrl.agrandarTexto.value,
+                    espaciado: accesibilidadCtrl.espaciadoTexto.value,
                   ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -69,13 +74,14 @@ class PlatoTarjeta extends StatelessWidget {
                 SizedBox(height: screenWidth * 0.01),
                 Text(
                   '\$${plato.precio}',
-                  style: AppEstilosTexto.withColor(
+                  style: AppEstilosTexto.withAccesibilidad(
                     AppEstilosTexto.bodyMedium,
-                    isDark ? Colors.grey[400]! : Colors.grey[600]!,
+                    agrandar: accesibilidadCtrl.agrandarTexto.value,
+                    espaciado: accesibilidadCtrl.espaciadoTexto.value,
+                    color: isDark ? Colors.grey[400]! : Colors.grey[600]!,
                   ),
                 ),
                 SizedBox(height: screenWidth * 0.01),
-
               ],
             ),
           ),

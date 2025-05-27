@@ -38,7 +38,7 @@ class VersionAppPantalla extends StatelessWidget {
               ),
             ),
             title: Text(
-              'Versión',
+              'version_app'.tr,
               style: AppEstilosTexto.withAccesibilidad(
                 AppEstilosTexto.h3,
                 agrandar: agrandar,
@@ -54,8 +54,8 @@ class VersionAppPantalla extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   InfoSeccion(
-                    titulo: '1.0.0',
-                    contenido: 'Lanzamiento inicial de la aplicación para descubrir restaurantes y sus platillos de la región. Incluye visualización de menús.',
+                    titulo: 'version'.tr,
+                    contenido: 'mensaje_de_version'.tr,
                   ),
                 ],
               ),

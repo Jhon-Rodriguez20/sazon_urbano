@@ -72,7 +72,7 @@ class RestauranteTarjeta extends StatelessWidget {
                   ),
                   SizedBox(height: screenWidth * 0.01),
                   Text(
-                    'Tel: ${restaurante.telefono}',
+                    'telefono_con_valor'.trParams({'telefono': restaurante.telefono}),
                     style: AppEstilosTexto.withAccesibilidad(
                       AppEstilosTexto.bodyMedium,
                       agrandar: accesibilidadCtrl.agrandarTexto.value,

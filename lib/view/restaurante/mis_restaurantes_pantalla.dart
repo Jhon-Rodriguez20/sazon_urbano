@@ -29,14 +29,13 @@ class MisRestaurantesPantalla extends StatelessWidget {
           ),
         ),
         title: Text(
-          'Mis Restaurantes',
+          'mis_restaurantes'.tr,
           style: AppEstilosTexto.withColor(
             AppEstilosTexto.h3,
             isDark ? Colors.white : Colors.black
           ),
         ),
         actions: [
-          // search icon
           IconButton(
             onPressed: () {},
             icon: Icon(

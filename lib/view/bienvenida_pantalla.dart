@@ -91,7 +91,7 @@ class BienvenidaPantalla extends StatelessWidget {
                 );
               },
                 child: Text(
-                  'Tradición que se saborea',
+                  'slogan'.tr,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white,

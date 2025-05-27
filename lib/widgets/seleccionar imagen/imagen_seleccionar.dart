@@ -59,10 +59,10 @@ class _ImagenSeleccionarState extends State<ImagenSeleccionar> {
                   borderRadius: BorderRadius.circular(5),
                 ),
               ),
-              const SizedBox(height: 20),
-
+              
+              SizedBox(height: 20),
               Text(
-                'Seleccionar imagen',
+                'seleccionar_imagen'.tr,
                 style: AppEstilosTexto.withColor(
                   AppEstilosTexto.h3,
                   Theme.of(context).textTheme.bodyLarge!.color!,
@@ -72,7 +72,7 @@ class _ImagenSeleccionarState extends State<ImagenSeleccionar> {
 
               _buildOptionTile(
                 context,
-                'Tomar foto',
+                'tomar_foto'.tr,
                 Icons.camera_alt_outlined,
                 () => _seleccionarImagen(true),
                 isDark,
@@ -80,12 +80,12 @@ class _ImagenSeleccionarState extends State<ImagenSeleccionar> {
               const SizedBox(height: 16),
               _buildOptionTile(
                 context,
-                'Elegir desde galería',
+                'elegir_desde_galería'.tr,
                 Icons.photo_library_outlined,
                 () => _seleccionarImagen(false),
                 isDark,
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 16),
             ],
           ),
         ),
@@ -209,7 +209,7 @@ class _ImagenSeleccionarState extends State<ImagenSeleccionar> {
   Widget _placeholder() {
     return Center(
       child: Text(
-        'Imagen',
+        'imagen'.tr,
         style: AppEstilosTexto.withColor(
           AppEstilosTexto.buttonMedium,
           Theme.of(context).primaryColor,

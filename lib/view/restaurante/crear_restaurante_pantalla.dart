@@ -56,9 +56,9 @@ class _CrearRestaurantePantallaState extends State<CrearRestaurantePantalla> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(height: 35),
+                    SizedBox(height: 35),
                     Text(
-                      'Crear Restaurante',
+                      'crear_restaurante'.tr,
                       style: AppEstilosTexto.withAccesibilidad(
                         AppEstilosTexto.h1,
                         agrandar: agrandar,
@@ -66,9 +66,10 @@ class _CrearRestaurantePantallaState extends State<CrearRestaurantePantalla> {
                         color: Theme.of(context).textTheme.bodyLarge!.color!,
                       ),
                     ),
-                    const SizedBox(height: 8),
+
+                    SizedBox(height: 8),
                     Text(
-                      'Registra tu restaurante aquí',
+                      'registrar_restaurante'.tr,
                       style: AppEstilosTexto.withAccesibilidad(
                         AppEstilosTexto.bodyLarge,
                         agrandar: agrandar,
@@ -76,39 +77,37 @@ class _CrearRestaurantePantallaState extends State<CrearRestaurantePantalla> {
                         color: isDark ? Colors.grey[400]! : Colors.grey[600]!,
                       ),
                     ),
-                    const SizedBox(height: 40),
-
+                    SizedBox(height: 40),
                     FormularioPersonalizado(
-                      label: 'Razón Social',
+                      label: 'razon_social'.tr,
                       prefixIcon: Icons.person_outline,
                       keyboardType: TextInputType.name,
                       controller: _razonSocialController,
                       validator: (value) =>
-                        value == null || value.isEmpty ? 'Por favor ingrese la razón social' : null,
+                        value == null || value.isEmpty ? 'error_razon_social'.tr : null,
                     ),
+                    
                     const SizedBox(height: 16),
-
                     FormularioPersonalizado(
-                      label: 'NIT',
+                      label: 'nit'.tr,
                       prefixIcon: Icons.numbers,
                       keyboardType: TextInputType.text,
                       controller: _nitController,
                       validator: (value) =>
-                        value == null || value.isEmpty ? 'Por favor ingrese el NIT' : null,
+                        value == null || value.isEmpty ? 'error_nit'.tr : null,
                     ),
 
-                    const SizedBox(height: 16),
-
+                    SizedBox(height: 16),
                     FormularioPersonalizado(
-                      label: 'Teléfono',
+                      label: 'telefono'.tr,
                       prefixIcon: Icons.phone_outlined,
                       keyboardType: TextInputType.phone,
                       controller: _telefonoController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Por favor ingrese el teléfono';
+                          return 'error_telefono'.tr;
                         } else if (value.length != 10) {
-                          return 'El teléfono debe tener 10 dígitos';
+                          return 'error_telefono_digitos'.tr;
                         }
                         return null;
                       },
@@ -118,18 +117,17 @@ class _CrearRestaurantePantallaState extends State<CrearRestaurantePantalla> {
                       ],
                     ),
 
-                                        const SizedBox(height: 16),
-
+                    SizedBox(height: 16),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         FormularioPersonalizado(
-                          label: 'Dirección',
+                          label: 'direccion'.tr,
                           prefixIcon: Icons.location_on_outlined,
                           keyboardType: TextInputType.streetAddress,
                           controller: _direccionController,
                           validator: (value) =>
-                            value == null || value.isEmpty ? 'Por favor ingrese la dirección' : null,
+                            value == null || value.isEmpty ? 'error_direccion'.tr : null,
                         ),
                         const SizedBox(height: 6),
                         InkWell(
@@ -137,8 +135,6 @@ class _CrearRestaurantePantallaState extends State<CrearRestaurantePantalla> {
                             final url = Uri.parse('https://www.google.com/maps');
                             if (await canLaunchUrl(url)) {
                               await launchUrl(url, mode: LaunchMode.externalApplication);
-                            } else {
-                              SnackbarPersonalizado.mostrarError('No se pudo abrir Google Maps');
                             }
                           },
                           child: Row(
@@ -148,10 +144,12 @@ class _CrearRestaurantePantallaState extends State<CrearRestaurantePantalla> {
                               SizedBox(width: 8),
                               Expanded(
                                 child: Text(
-                                  'Haz click para elegir la dirección en Google Maps.',
-                                  style: AppEstilosTexto.withColor(
+                                  'direccion_google_maps'.tr,
+                                  style: AppEstilosTexto.withAccesibilidad(
                                     AppEstilosTexto.bodySmall,
-                                    isDark ? Colors.grey[400]! : Colors.grey[600]!,
+                                    agrandar: accesibilidadCtrl.agrandarTexto.value,
+                                    espaciado: accesibilidadCtrl.espaciadoTexto.value,
+                                    color: isDark ? Colors.grey[400]! : Colors.grey[600]!,
                                   ),
                                 ),
                               ),
@@ -160,7 +158,7 @@ class _CrearRestaurantePantallaState extends State<CrearRestaurantePantalla> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 24),
+                    SizedBox(height: 24),
 
                     ImagenSeleccionar(
                       imagenSeleccionada: _imagenSeleccionada,
@@ -169,13 +167,16 @@ class _CrearRestaurantePantallaState extends State<CrearRestaurantePantalla> {
                       },
                     ),
 
-                    const SizedBox(height: 24),
+                    SizedBox(height: 24),
                     SizedBox(
                       width: double.infinity,
                       child: Obx(() => ElevatedButton(
                             onPressed: () async {
                               if (!_formKey.currentState!.validate()) {
-                                Get.snackbar('Error', 'Debe completar todos los campos');
+                                return;
+                              }
+                              if (_imagenSeleccionada == null) {
+                                SnackbarPersonalizado.mostrarError('error_imagen_restaurante'.tr);
                                 return;
                               }
 
@@ -188,7 +189,7 @@ class _CrearRestaurantePantallaState extends State<CrearRestaurantePantalla> {
                                   imagen: _imagenSeleccionada,
                                 );
                               } catch (e) {
-                                Get.snackbar('Error', e.toString());
+                                Get.snackbar('error'.tr, e.toString());
                               }
                             },
                             style: ElevatedButton.styleFrom(
@@ -201,7 +202,7 @@ class _CrearRestaurantePantallaState extends State<CrearRestaurantePantalla> {
                             child: _restauranteControlador.cargando.value
                                 ? const CircularProgressIndicator(color: Colors.white)
                                 : Text(
-                                    'Crear Restaurante',
+                                    'crear_restaurante'.tr,
                                     style: AppEstilosTexto.withAccesibilidad(
                                       AppEstilosTexto.buttonMedium,
                                       agrandar: agrandar,
@@ -211,7 +212,7 @@ class _CrearRestaurantePantallaState extends State<CrearRestaurantePantalla> {
                                   ),
                           )),
                     ),
-                    const SizedBox(height: 24),
+                    SizedBox(height: 24),
                   ],
                 ),
               ),

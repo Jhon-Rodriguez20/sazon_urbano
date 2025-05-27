@@ -4,7 +4,6 @@ import 'package:sazon_urbano/controllers/accesibilidad/accesibilidad_controlador
 import 'package:sazon_urbano/models/restaurante/restaurante_modelo.dart';
 import 'package:sazon_urbano/utils/app_estilos_texto.dart';
 import 'package:sazon_urbano/view/plato/ver_platos_pantalla.dart';
-import 'package:sazon_urbano/view/widgets/snacbar_personalizado.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class RestauranteDetallePantalla extends StatelessWidget {
@@ -43,7 +42,7 @@ class RestauranteDetallePantalla extends StatelessWidget {
               ),
             ),
             title: Text(
-              'Detalles',
+              'details'.tr,
               style: AppEstilosTexto.withAccesibilidad(
                 AppEstilosTexto.h3,
                 agrandar: agrandar,
@@ -154,7 +153,7 @@ class RestauranteDetallePantalla extends StatelessWidget {
                         ),
                       ),
                       child: Text(
-                        'Ver Platos',
+                        'ver_platos'.tr,
                         style: AppEstilosTexto.withAccesibilidad(
                           AppEstilosTexto.buttonMedium,
                           agrandar: agrandar,
@@ -173,8 +172,6 @@ class RestauranteDetallePantalla extends StatelessWidget {
 
                         if (await canLaunchUrl(url)) {
                           await launchUrl(url, mode: LaunchMode.externalApplication);
-                        } else {
-                          SnackbarPersonalizado.mostrarError('No se pudo abrir Google Maps');
                         }
                       },
                       style: ElevatedButton.styleFrom(
@@ -182,7 +179,7 @@ class RestauranteDetallePantalla extends StatelessWidget {
                         backgroundColor: Theme.of(context).primaryColor,
                       ),
                       child: Text(
-                        'Ver ubicación',
+                        'ver_ubicacion'.tr,
                         style: AppEstilosTexto.withAccesibilidad(
                           AppEstilosTexto.buttonMedium,
                           agrandar: agrandar,

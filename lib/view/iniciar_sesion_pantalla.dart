@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sazon_urbano/controllers/auth/autenticacion_controlador.dart';
+import 'package:sazon_urbano/controllers/idioma/idioma_controlador.dart';
 import 'package:sazon_urbano/principal_binding.dart';
 import 'package:sazon_urbano/utils/app_estilos_texto.dart';
 import 'package:sazon_urbano/view/crear_cuenta_pantalla.dart';
@@ -13,24 +14,25 @@ class IniciarSesionPantalla extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>(); // 👉 Agregado el form key
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final idiomaCtrl = Get.find<IdiomaControlador>();
 
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
-          child: Form( // 👉 Aquí envolvemos en un Form
+          child: Form(
             key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 40),
                 Text(
-                  '¡Bienvenido de vuelta!',
+                  'bienvenida_iniciar_sesion'.tr,
                   style: AppEstilosTexto.withColor(
                     AppEstilosTexto.h1,
                     Theme.of(context).textTheme.bodyLarge!.color!,
@@ -38,7 +40,7 @@ class IniciarSesionPantalla extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'Inicia sesión para continuar',
+                  'inicia_sesión_para_continuar'.tr,
                   style: AppEstilosTexto.withColor(
                     AppEstilosTexto.bodyLarge,
                     isDark ? Colors.grey[400]! : Colors.grey[600]!,
@@ -47,16 +49,16 @@ class IniciarSesionPantalla extends StatelessWidget {
                 const SizedBox(height: 40),
                 // Email textfield
                 FormularioPersonalizado(
-                  label: 'Correo',
+                  label: 'correo'.tr,
                   prefixIcon: Icons.email_outlined,
                   keyboardType: TextInputType.emailAddress,
                   controller: _emailController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Por favor ingrese su correo';
+                      return 'error_correo'.tr;
                     }
                     if (!GetUtils.isEmail(value)) {
-                      return 'Por favor ingrese un correo válido';
+                      return 'error_correo_valido'.tr;
                     }
                     return null;
                   },
@@ -64,14 +66,14 @@ class IniciarSesionPantalla extends StatelessWidget {
                 const SizedBox(height: 16),
                 // Password textfield
                 FormularioPersonalizado(
-                  label: 'Contraseña',
+                  label: 'contrasena'.tr,
                   prefixIcon: Icons.lock_outline,
                   keyboardType: TextInputType.visiblePassword,
                   isPassword: true,
                   controller: _passwordController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Por favor ingrese su contraseña';
+                      return 'error_contrasena'.tr;
                     }
                     return null;
                   },
@@ -89,7 +91,7 @@ class IniciarSesionPantalla extends StatelessWidget {
                       ),
                     ),
                     child: Text(
-                      'Iniciar Sesión',
+                      'iniciar_sesion_boton'.tr,
                       style: AppEstilosTexto.withColor(
                         AppEstilosTexto.buttonMedium,
                         Colors.white,
@@ -102,7 +104,7 @@ class IniciarSesionPantalla extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "¿No tienes una cuenta?",
+                      'no_tienes_cuenta'.tr,
                       style: AppEstilosTexto.withColor(
                         AppEstilosTexto.bodyMedium,
                         isDark ? Colors.grey[400]! : Colors.grey[600]!,
@@ -111,7 +113,7 @@ class IniciarSesionPantalla extends StatelessWidget {
                     TextButton(
                       onPressed: () => Get.to(() => CrearCuentaPantalla()),
                       child: Text(
-                        'Crear Cuenta',
+                        'crear_cuenta'.tr,
                         style: AppEstilosTexto.withColor(
                           AppEstilosTexto.buttonMedium,
                           Theme.of(context).primaryColor,
@@ -119,6 +121,65 @@ class IniciarSesionPantalla extends StatelessWidget {
                       ),
                     ),
                   ],
+                ),
+
+                SizedBox(height: 50),
+                Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        'seleccionar_idioma'.tr,
+                        style: AppEstilosTexto.withColor(
+                          AppEstilosTexto.bodyLarge,
+                          isDark ? Colors.white : Colors.black,
+                        ),
+                      ),
+                      // SizedBox(height: 2),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton<String>(
+                            value: idiomaCtrl.idiomaActual.value,
+                            icon: const Icon(Icons.arrow_drop_down, size: 40),
+                            onChanged: (String? nuevoCodigo) {
+                              if (nuevoCodigo != null) {
+                                idiomaCtrl.cambiarIdioma(nuevoCodigo);
+                              }
+                            },
+                            style: AppEstilosTexto.withColor(
+                              AppEstilosTexto.bodyLarge.copyWith(fontSize: 20),
+                              isDark ? Colors.white : Colors.black,
+                            ),
+                            items: idiomaCtrl.idiomas.map((idioma) {
+                              return DropdownMenuItem<String>(
+                                value: idioma['codigo'],
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      idioma['bandera'] as String,
+                                      style: const TextStyle(fontSize: 24),
+                                    ),
+                                    const SizedBox(width: 12),
+                                    Text(
+                                      idioma['nombre'] as String,
+                                      style: AppEstilosTexto.withColor(
+                                        AppEstilosTexto.bodyLarge.copyWith(fontSize: 18),
+                                        isDark ? Colors.white : Colors.black,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

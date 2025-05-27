@@ -36,7 +36,7 @@ class MiCuentaPantalla extends StatelessWidget {
         child: Scaffold(
           appBar: AppBar(
             title: Text(
-              'Mi Cuenta',
+              'mi_cuenta'.tr,
               style: AppEstilosTexto.withAccesibilidad(
                 AppEstilosTexto.h3,
                 agrandar: agrandar,
@@ -142,7 +142,7 @@ class MiCuentaPantalla extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  'Editar Perfil',
+                  'editar_perfil'.tr,
                   style: AppEstilosTexto.withAccesibilidad(
                     AppEstilosTexto.bodyMedium,
                     agrandar: agrandar,
@@ -188,11 +188,18 @@ class MiCuentaPantalla extends StatelessWidget {
         final espaciado = accesibilidadCtrl.espaciadoTexto.value;
 
         if (idRol == '2') {
-          menuItems.add({'icon': Icons.store, 'title': 'Mis Restaurantes'});
+          menuItems.add({
+            'key': 'mis_restaurantes',
+            'icon': Icons.store,
+            'title': 'mis_restaurantes'.tr,
+          });
         }
-
         menuItems.addAll([
-          {'icon': Icons.logout_outlined, 'title': 'Cerrar Sesion'},
+          {
+            'key': 'cerrar_sesion',
+            'icon': Icons.logout_outlined,
+            'title': 'cerrar_sesion'.tr,
+          },
         ]);
 
         return Padding(
@@ -233,9 +240,9 @@ class MiCuentaPantalla extends StatelessWidget {
                     color: isDark ? Colors.grey[400] : Colors.grey[600],
                   ),
                   onTap: () {
-                    if (item['title'] == 'Cerrar Sesion') {
+                    if (item['key'] == 'cerrar_sesion') {
                       _showLogoutDialog(context);
-                    } else if (item['title'] == 'Mis Restaurantes') {
+                    } else if (item['key'] == 'mis_restaurantes') {
                       Get.to(() => MisRestaurantesPantalla());
                     }
                   },
@@ -279,7 +286,7 @@ class MiCuentaPantalla extends StatelessWidget {
             ),
             SizedBox(height: 8),
             Text(
-              '¿Seguro que deseas cerrar sesión?',
+              'desear_cerrar_sesion'.tr,
               style: AppEstilosTexto.withColor(
                 AppEstilosTexto.bodyMedium,
                 isDark ? Colors.grey[400]! : Colors.grey[600]!
@@ -301,7 +308,7 @@ class MiCuentaPantalla extends StatelessWidget {
                       ),
                     ),
                     child: Text(
-                      'Cancelar',
+                      'cancelar'.tr,
                       style: AppEstilosTexto.withColor(
                         AppEstilosTexto.buttonMedium,
                         Theme.of(context).textTheme.bodyLarge!.color!
@@ -327,7 +334,7 @@ class MiCuentaPantalla extends StatelessWidget {
                       ),
                     ),
                     child: Text(
-                      'Cerrar Sesión',
+                      'cerrar_sesion_boton'.tr,
                       style: AppEstilosTexto.withColor(
                         AppEstilosTexto.buttonMedium,
                         Colors.white

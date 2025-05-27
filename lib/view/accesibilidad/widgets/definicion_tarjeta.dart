@@ -39,7 +39,7 @@ class DefinicionTarjeta extends StatelessWidget {
           color: Theme.of(context).primaryColor,
         ),
         title: Text(
-          titulo,
+          titulo.tr,
           style: AppEstilosTexto.withAccesibilidad(
             AppEstilosTexto.bodyMedium,
             agrandar: agrandar,
@@ -57,7 +57,7 @@ class DefinicionTarjeta extends StatelessWidget {
     );
   }
 
-  void _showAnswerBottomSheet(BuildContext context, String definicion, bool isDark) {
+  void _showAnswerBottomSheet(BuildContext context, String definicionKey, bool isDark) {
     final accesibilidadCtrl = Get.find<AccesibilidadControlador>();
     final agrandar = accesibilidadCtrl.agrandarTexto.value;
     final espaciado = accesibilidadCtrl.espaciadoTexto.value;
@@ -75,10 +75,10 @@ class DefinicionTarjeta extends StatelessWidget {
             : const ColorFilter.mode(Colors.transparent, BlendMode.dst),
         child: SingleChildScrollView(
           child: Container(
-            padding: EdgeInsets.all(24),
+            padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
               color: Theme.of(context).scaffoldBackgroundColor,
-              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -89,7 +89,7 @@ class DefinicionTarjeta extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        definicion,
+                        definicionKey.tr,
                         style: AppEstilosTexto.withAccesibilidad(
                           AppEstilosTexto.h3,
                           agrandar: agrandar,
@@ -107,9 +107,9 @@ class DefinicionTarjeta extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 24),
+                const SizedBox(height: 24),
                 Text(
-                  _obtenerRespuesta(definicion),
+                  'respuesta_$definicionKey'.tr,
                   style: AppEstilosTexto.withAccesibilidad(
                     AppEstilosTexto.bodyMedium,
                     agrandar: agrandar,
@@ -117,20 +117,20 @@ class DefinicionTarjeta extends StatelessWidget {
                     color: Theme.of(context).textTheme.bodyLarge!.color!,
                   ),
                 ),
-                SizedBox(height: 24),
+                const SizedBox(height: 24),
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () => Get.back(),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Theme.of(context).primaryColor,
-                      padding: EdgeInsets.symmetric(vertical: 16),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
                     child: Text(
-                      'Entendido',
+                      'entendido'.tr,
                       style: AppEstilosTexto.withAccesibilidad(
                         AppEstilosTexto.buttonMedium,
                         agrandar: agrandar,
@@ -148,20 +148,5 @@ class DefinicionTarjeta extends StatelessWidget {
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
     );
-  }
-
-  String _obtenerRespuesta(String question) {
-    final answers = {
-      'Agrandar texto': 'Cuando esta opción está activada:\n\n'
-          'Los textos de la aplicación aumentan su tamaño para facilitar la lectura, especialmente para personas con dificultades visuales.',
-      
-      'Activar desaturación': 'Cuando esta opción está activada:\n\n'
-          'Elimina los colores vivos de la aplicación y los reemplaza por una escala de grises. Es útil para personas con sensibilidad a los colores o que prefieren una visualización más neutral',
-
-      'Espaciado de texto': 'Cuando esta opción está activada:\n\n'
-          'Activa un mayor espacio entre las letras y líneas del texto. Esto mejora la legibilidad para personas con dislexia u otras dificultades de lectura.'
-    };
-
-    return answers[question] ?? 'Information no available. Please contact to support for assistance.';
   }
 }
