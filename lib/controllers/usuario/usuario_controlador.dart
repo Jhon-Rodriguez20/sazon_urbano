@@ -56,8 +56,6 @@ class UsuarioControlador extends GetxController {
     }
 
     cargando.value = false;
-
-    // Redirige después de terminar la carga
     Get.off(() => const MiCuentaPantalla());
   }
 }

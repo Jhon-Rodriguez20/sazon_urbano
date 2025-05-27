@@ -322,7 +322,6 @@ class MiCuentaPantalla extends StatelessWidget {
                     onPressed: () async {
                       final autenticacionControlador = Get.find<AutenticacionControlador>();
                       await autenticacionControlador.logout();
-                      // Navegar a login
                       Get.offAll(() => IniciarSesionPantalla());
                     },
                     style: ElevatedButton.styleFrom(

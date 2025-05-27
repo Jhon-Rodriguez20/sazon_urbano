@@ -7,6 +7,7 @@ import 'package:sazon_urbano/security/seguridad_sesion.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sazon_urbano/utils/app_estilos_texto.dart';
 import 'package:sazon_urbano/view/restaurante/restaurante_grid.dart';
+import 'package:sazon_urbano/view/widgets/barra_busqueda_personalizado.dart';
 import 'package:sazon_urbano/view/widgets/promocion_banner.dart';
 import 'package:sazon_urbano/widgets/editar perfil/avatar_usuario.dart';
 
@@ -141,6 +142,10 @@ class _HomePantallaState extends State<HomePantalla> {
                       ),
                     ],
                   ),
+                ),
+                BarraBusquedaPersonalizado(
+                  hintText: 'buscador_personalizado_restaurante'.tr,
+                  onChanged: (valor) => restauranteControlador.terminoBusqueda.value = valor,
                 ),
                 PromocionBanner(),
                 Expanded(child: RestauranteGrid()),

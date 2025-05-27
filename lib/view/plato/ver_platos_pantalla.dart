@@ -3,7 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sazon_urbano/controllers/accesibilidad/accesibilidad_controlador.dart';
+import 'package:sazon_urbano/controllers/plato/plato_controlador.dart';
 import 'package:sazon_urbano/utils/app_estilos_texto.dart';
+import 'package:sazon_urbano/view/widgets/barra_busqueda_personalizado.dart';
 import 'package:sazon_urbano/view/plato/plato_grid.dart';
 import 'package:sazon_urbano/view/plato/crear_plato_pantalla.dart';
 
@@ -18,6 +20,7 @@ class VerPlatosPantalla extends StatefulWidget {
 class _VerPlatosPantallaState extends State<VerPlatosPantalla> {
   bool _esGerente = false;
   bool _cargando = true;
+  final PlatoControlador platoControlador = Get.put(PlatoControlador());
 
   @override
   void initState() {
@@ -61,13 +64,13 @@ class _VerPlatosPantallaState extends State<VerPlatosPantalla> {
 
       return ColorFiltered(
         colorFilter: desaturar
-          ? const ColorFilter.matrix(<double>[
-            0.2126, 0.7152, 0.0722, 0, 0,
-            0.2126, 0.7152, 0.0722, 0, 0,
-            0.2126, 0.7152, 0.0722, 0, 0,
-            0, 0, 0, 1, 0,
-          ])
-          : const ColorFilter.mode(Colors.transparent, BlendMode.dst),
+            ? const ColorFilter.matrix(<double>[
+                0.2126, 0.7152, 0.0722, 0, 0,
+                0.2126, 0.7152, 0.0722, 0, 0,
+                0.2126, 0.7152, 0.0722, 0, 0,
+                0, 0, 0, 1, 0,
+              ])
+            : const ColorFilter.mode(Colors.transparent, BlendMode.dst),
         child: Scaffold(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           appBar: AppBar(
@@ -87,36 +90,36 @@ class _VerPlatosPantallaState extends State<VerPlatosPantalla> {
                 color: isDark ? Colors.white : Colors.black,
               ),
             ),
-            actions: [
-              IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.search,
-                  color: isDark ? Colors.white : Colors.black,
-                ),
+          ),
+          body: Column(
+            children: [
+              BarraBusquedaPersonalizado(
+                hintText: 'buscador_personalizado_plato'.tr,
+                onChanged: (valor) => platoControlador.terminoBusqueda.value = valor,
+              ),
+              Expanded(
+                child: PlatoGrid(idRestaurante: widget.idRestaurante),
               ),
             ],
           ),
-          body: PlatoGrid(idRestaurante: widget.idRestaurante),
-
           floatingActionButton: _esGerente
-            ? SizedBox(
-            width: 72,
-            height: 72,
-            child: FloatingActionButton(
-              onPressed: () {
-                Get.to(() => CrearPlatoPantalla(idRestaurante: widget.idRestaurante));
-              },
-              backgroundColor: Theme.of(context).primaryColor,
-              shape: const CircleBorder(),
-              child: const Icon(
-                Icons.add,
-                size: 36,
-                color: Colors.white,
-              ),
-            ),
-          )
-          : null,
+              ? SizedBox(
+                  width: 72,
+                  height: 72,
+                  child: FloatingActionButton(
+                    onPressed: () {
+                      Get.to(() => CrearPlatoPantalla(idRestaurante: widget.idRestaurante));
+                    },
+                    backgroundColor: Theme.of(context).primaryColor,
+                    shape: const CircleBorder(),
+                    child: const Icon(
+                      Icons.add,
+                      size: 36,
+                      color: Colors.white,
+                    ),
+                  ),
+                )
+              : null,
         ),
       );
     });

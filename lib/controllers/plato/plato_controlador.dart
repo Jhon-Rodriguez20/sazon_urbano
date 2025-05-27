@@ -48,7 +48,6 @@ class PlatoControlador extends GetxController {
 
     } catch (e) {
       cargando.value = false;
-      // Si se subió la imagen pero falló después, eliminarla
       if (e.toString().contains('Error al crear el plato') && urlImagen != null) {
         try {
           await ImageService.deleteImage(urlImagen);
@@ -61,7 +60,6 @@ class PlatoControlador extends GetxController {
   }
 
   var platos = <Plato>[].obs;
-
   Future<void> cargarPlatos() async {
     try {
       final lista = await _platoRepositorio.obtenerPlatos();
@@ -69,5 +67,15 @@ class PlatoControlador extends GetxController {
     } catch (e) {
       throw('Error al cargar platos: $e');
     }
+  }
+
+  var terminoBusqueda = ''.obs;
+  List<Plato> get platosFiltrados {
+    if (terminoBusqueda.value.isEmpty) {
+      return platos;
+    }
+    return platos.where((restaurante) =>
+      restaurante.nombrePlato.toLowerCase().contains(terminoBusqueda.value.toLowerCase())
+    ).toList();
   }
 }

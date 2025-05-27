@@ -11,7 +11,7 @@ class RestauranteGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      final lista = controlador.restaurantes;
+      final lista = controlador.restaurantesFiltrados;
 
       if (lista.isEmpty) {
         return Center(child: Text('restaurantes_no_disponibles'.tr));

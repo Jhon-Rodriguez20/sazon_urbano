@@ -22,7 +22,6 @@ class UsuarioControlador extends GetxController {
     try {
       cargando.value = true;
 
-      // Verificar si ya existe un usuario con ese email en Firestore
       final existeUsuario = await _usuarioRepositorio.existeUsuarioConEmail(email);
       if (existeUsuario) {
         cargando.value = false;
@@ -30,7 +29,6 @@ class UsuarioControlador extends GetxController {
         return;
       }
 
-      // Crear usuario en FirebaseAuth
       final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
@@ -43,10 +41,8 @@ class UsuarioControlador extends GetxController {
         return;
       }
 
-      // Si ocupacion no se pasó, se pone 'Cliente'
       final ocupacionFinal = (ocupacion?.trim().isEmpty ?? true) ? 'Cliente' : ocupacion!.trim();
 
-      // Crear usuario en Firestore usando el UID de FirebaseAuth
       await _usuarioRepositorio.crearUsuario(
         idUsuario: uid,
         nombre: nombre,

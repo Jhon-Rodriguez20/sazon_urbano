@@ -47,12 +47,10 @@ class AutenticacionControlador extends GetxController {
       _authRepositorio.guardarInicioSesion(idRol: idRol);
       _esLogueado.value = true;
 
-      // 🔥 IMPORTANTE: Asegúrate de limpiar el controlador previo
       if (Get.isRegistered<NavegacionControlador>()) {
         Get.delete<NavegacionControlador>(force: true);
       }
 
-      // ✅ Registrar uno nuevo
       Get.put(NavegacionControlador());
 
       return true;
@@ -75,7 +73,6 @@ class AutenticacionControlador extends GetxController {
     _authRepositorio.cerrarSesion();
     _esLogueado.value = false;
 
-    // Solo eliminar el controlador
     if (Get.isRegistered<NavegacionControlador>()) {
       Get.delete<NavegacionControlador>();
     }

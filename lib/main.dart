@@ -9,8 +9,6 @@ import 'package:sazon_urbano/controllers/theme/tema_controlador.dart';
 import 'package:sazon_urbano/utils/app_temas.dart';
 import 'package:sazon_urbano/utils/app_traducciones.dart';
 import 'package:sazon_urbano/view/bienvenida_pantalla.dart';
-
-// IMPORTANTE para Firebase
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 

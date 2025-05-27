@@ -43,15 +43,6 @@ class MisRestaurantesPantalla extends StatelessWidget {
               color: isDark ? Colors.white : Colors.black,
             ),
           ),
-
-          // filter icon
-          // IconButton(
-          //   onPressed: () => FilterBottomSheet.show(context),
-          //   icon: Icon(
-          //     Icons.filter_list,
-          //     color: isDark ? Colors.white : Colors.black,
-          //   ),
-          // ),
         ],
       ),
       body: Obx(() {

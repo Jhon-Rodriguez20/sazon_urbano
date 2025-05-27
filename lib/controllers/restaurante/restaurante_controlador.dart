@@ -31,7 +31,6 @@ class RestauranteControlador extends GetxController {
     try {
       cargando.value = true;
       
-      // Subir imagen si existe
       if (imagen != null) {
         urlImagen = await ImageService.uploadImage(imagen, 'restaurantes');
         if (urlImagen == null) {
@@ -84,5 +83,15 @@ class RestauranteControlador extends GetxController {
     } catch (e) {
       throw('Error al cargar restaurantes del gerente: $e');
     }
+  }
+
+  var terminoBusqueda = ''.obs;
+  List<Restaurante> get restaurantesFiltrados {
+    if (terminoBusqueda.value.isEmpty) {
+      return restaurantes;
+    }
+    return restaurantes.where((restaurante) =>
+      restaurante.razonSocial.toLowerCase().contains(terminoBusqueda.value.toLowerCase())
+    ).toList();
   }
 }
