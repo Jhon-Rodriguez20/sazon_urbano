@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppEstilosTexto {
-  // Headings
   static TextStyle h1 = GoogleFonts.poppins(
     fontSize: 32,
     fontWeight: FontWeight.w700,
@@ -19,7 +18,6 @@ class AppEstilosTexto {
     fontWeight: FontWeight.w600,
   );
 
-  // body text
   static TextStyle bodyLarge = GoogleFonts.poppins(
     fontSize: 16,
     fontWeight: FontWeight.w400,
@@ -34,7 +32,6 @@ class AppEstilosTexto {
     fontWeight: FontWeight.w400,
   );
 
-  // button text
   static TextStyle buttonLarge = GoogleFonts.poppins(
     fontSize: 16,
     fontWeight: FontWeight.w600,
@@ -49,13 +46,11 @@ class AppEstilosTexto {
     fontWeight: FontWeight.w500,
   );
 
-  // label text
   static TextStyle labelMedium = GoogleFonts.poppins(
     fontSize: 14,
     fontWeight: FontWeight.w500,
   );
 
-  // helper functions for color variations
   static TextStyle withColor(TextStyle style, Color color) {
     return style.copyWith(color: color);
   }

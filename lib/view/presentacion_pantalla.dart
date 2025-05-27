@@ -19,12 +19,12 @@ class _PresentacionPantallaState extends State<PresentacionPantalla> {
     OnboardingItem(
       title: 'platillos_tipicos'.tr,
       description: 'descripcion_platillos_tipicos'.tr,
-      image: 'assets/images/intro.png',
+      image: 'assets/images/intro1.webp',
     ),
     OnboardingItem(
       title: 'restaurantes_nativos'.tr,
       description: 'descripcion_restaurantes_nativos'.tr,
-      image: 'assets/images/intro1.png',
+      image: 'assets/images/intro2.webp',
     ),
   ];
 

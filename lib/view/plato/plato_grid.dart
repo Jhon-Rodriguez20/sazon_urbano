@@ -9,7 +9,7 @@ class PlatoGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final PlatoControlador controlador = Get.put(PlatoControlador());
+    final PlatoControlador controlador = Get.find<PlatoControlador>();
 
     return FutureBuilder(
       future: controlador.cargarPlatos(),
@@ -18,30 +18,30 @@ class PlatoGrid extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
 
-        final platosFiltrados = controlador.platos
+        return Obx(() {
+          final platosFiltrados = controlador.platosFiltrados
             .where((plato) => plato.idRestaurante == idRestaurante)
             .toList();
 
-        if (platosFiltrados.isEmpty) {
-          return Center(
-             child:Text(
-            'platos_no_disponibles'.tr
-          ));
-        }
+          if (platosFiltrados.isEmpty) {
+            return Center(child: Text('platos_no_disponibles'.tr));
+          }
 
-        return GridView.builder(
-          padding: const EdgeInsets.all(16),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            mainAxisSpacing: 12,
-            crossAxisSpacing: 12,
-            childAspectRatio: 0.75,
-          ),
-          itemCount: platosFiltrados.length,
-          itemBuilder: (context, index) {
-            return PlatoTarjeta(plato: platosFiltrados[index]);
-          },
-        );
+          return GridView.builder(
+            padding: const EdgeInsets.all(16),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 12,
+              crossAxisSpacing: 12,
+              childAspectRatio: 0.75,
+            ),
+            itemCount: platosFiltrados.length,
+            itemBuilder: (context, index) {
+              final plato = platosFiltrados[index];
+              return PlatoTarjeta(plato: plato);
+            },
+          );
+        });
       },
     );
   }

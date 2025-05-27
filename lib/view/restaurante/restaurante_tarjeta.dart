@@ -38,7 +38,6 @@ class RestauranteTarjeta extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Imagen
             AspectRatio(
               aspectRatio: 16 / 11,
               child: ClipRRect(

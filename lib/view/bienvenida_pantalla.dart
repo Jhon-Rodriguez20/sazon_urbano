@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sazon_urbano/controllers/auth/autenticacion_controlador.dart';
 import 'package:sazon_urbano/principal_binding.dart';
+import 'package:sazon_urbano/view/configurar_idioma_pantalla.dart';
 import 'package:sazon_urbano/view/iniciar_sesion_pantalla.dart';
-import 'package:sazon_urbano/view/presentacion_pantalla.dart';
 import 'package:sazon_urbano/view/principal_pantalla.dart';
 
 class BienvenidaPantalla extends StatelessWidget {
@@ -17,7 +17,7 @@ class BienvenidaPantalla extends StatelessWidget {
     Future.delayed(const Duration(milliseconds: 2500),(){
 
       if(autenticacionControlador.esPrimeraVez) {
-        Get.off(()=> const PresentacionPantalla());
+        Get.off(()=> const ConfigurarIdiomaPantalla());
 
       } else if (autenticacionControlador.esLogueado) {
         Get.offAll(() => PrincipalPantalla(), binding: PrincipalBinding());
@@ -42,7 +42,6 @@ class BienvenidaPantalla extends StatelessWidget {
         ),
         child: Stack(
           children: [
-            // background pattern
             Positioned.fill(
               child: Opacity(opacity: 0.05,
               child: GridPattern(

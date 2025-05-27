@@ -23,7 +23,7 @@ class FormularioPersonalizado extends StatefulWidget {
     this.validator,
     this.onChanged,
     this.initialValue,
-    this.inputFormatters, // ✅ NUEVO
+    this.inputFormatters,
   });
 
   @override

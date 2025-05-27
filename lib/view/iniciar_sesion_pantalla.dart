@@ -47,7 +47,6 @@ class IniciarSesionPantalla extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 40),
-                // Email textfield
                 FormularioPersonalizado(
                   label: 'correo'.tr,
                   prefixIcon: Icons.email_outlined,
@@ -64,7 +63,6 @@ class IniciarSesionPantalla extends StatelessWidget {
                   },
                 ),
                 const SizedBox(height: 16),
-                // Password textfield
                 FormularioPersonalizado(
                   label: 'contrasena'.tr,
                   prefixIcon: Icons.lock_outline,
@@ -123,7 +121,7 @@ class IniciarSesionPantalla extends StatelessWidget {
                   ],
                 ),
 
-                SizedBox(height: 50),
+                SizedBox(height: 70),
                 Center(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -131,11 +129,10 @@ class IniciarSesionPantalla extends StatelessWidget {
                       Text(
                         'seleccionar_idioma'.tr,
                         style: AppEstilosTexto.withColor(
-                          AppEstilosTexto.bodyLarge,
-                          isDark ? Colors.white : Colors.black,
+                          AppEstilosTexto.bodyMedium,
+                          isDark ? Colors.grey[400]! : Colors.grey[600]!,
                         ),
                       ),
-                      // SizedBox(height: 2),
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                         decoration: BoxDecoration(
