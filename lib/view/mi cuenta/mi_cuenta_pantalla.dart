@@ -263,7 +263,6 @@ class MiCuentaPantalla extends StatelessWidget {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
-
         ),
         contentPadding: EdgeInsets.symmetric(
           horizontal: 24,
