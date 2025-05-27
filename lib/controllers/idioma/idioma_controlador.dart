@@ -33,8 +33,11 @@ class IdiomaControlador extends GetxController {
   Future<void> _cargarIdiomaGuardado() async {
     final prefs = await SharedPreferences.getInstance();
     final guardado = prefs.getString('idioma') ?? 'es';
-    idiomaActual.value = guardado;
-    Get.updateLocale(Locale(guardado));
+
+    if (idiomaActual.value != guardado) {
+      idiomaActual.value = guardado;
+      Get.updateLocale(Locale(guardado));
+    }
   }
 
   Future<void> _guardarIdioma(String codigo) async {
