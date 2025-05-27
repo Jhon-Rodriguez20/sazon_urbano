@@ -11,6 +11,7 @@ class AutenticacionControlador extends GetxController {
 
   final RxBool _esPrimeraVez = true.obs;
   final RxBool _esLogueado = false.obs;
+  final RxBool cargando = false.obs;
 
   bool get esPrimeraVez => _esPrimeraVez.value;
   bool get esLogueado => _esLogueado.value;
@@ -32,6 +33,7 @@ class AutenticacionControlador extends GetxController {
   }
 
   Future<bool> loginConFirebase(String email, String password) async {
+    cargando.value = true;
     try {
       final cred = await _firebaseAuth.signInWithEmailAndPassword(
         email: email,
@@ -39,9 +41,9 @@ class AutenticacionControlador extends GetxController {
       );
 
       final snapshot = await FirebaseFirestore.instance
-          .collection('usuarios')
-          .doc(cred.user!.uid)
-          .get();
+        .collection('usuarios')
+        .doc(cred.user!.uid)
+        .get();
       final idRol = snapshot.data()?['idRol'] ?? '3';
 
       _authRepositorio.guardarInicioSesion(idRol: idRol);
@@ -52,10 +54,13 @@ class AutenticacionControlador extends GetxController {
       }
 
       Get.put(NavegacionControlador());
-
       return true;
+
     } on FirebaseAuthException {
       return false;
+
+    } finally {
+      cargando.value = false;
     }
   }
 

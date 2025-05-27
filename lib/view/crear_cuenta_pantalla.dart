@@ -145,7 +145,8 @@ class _CrearCuentaPantallaState extends State<CrearCuentaPantalla> {
                             Colors.white,
                           ),
                         ),
-                  )),
+                      ),
+                    ),
                 ),
                 const SizedBox(height: 24),
 

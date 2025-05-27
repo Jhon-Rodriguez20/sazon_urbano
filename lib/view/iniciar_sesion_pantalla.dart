@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sazon_urbano/controllers/auth/autenticacion_controlador.dart';
-import 'package:sazon_urbano/controllers/idioma/idioma_controlador.dart';
 import 'package:sazon_urbano/principal_binding.dart';
 import 'package:sazon_urbano/utils/app_estilos_texto.dart';
 import 'package:sazon_urbano/view/crear_cuenta_pantalla.dart';
@@ -13,13 +12,12 @@ class IniciarSesionPantalla extends StatelessWidget {
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
+  final AutenticacionControlador autenticacionControlador = Get.find<AutenticacionControlador>();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final idiomaCtrl = Get.find<IdiomaControlador>();
 
     return Scaffold(
       body: SafeArea(
@@ -76,27 +74,36 @@ class IniciarSesionPantalla extends StatelessWidget {
                     return null;
                   },
                 ),
-                const SizedBox(height: 24),
-                SizedBox(
+                SizedBox(height: 24),
+                Obx(() => SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: _handleSignIn,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).primaryColor,
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
+                  onPressed: autenticacionControlador.cargando.value ? null : _handleSignIn,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).primaryColor,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
                     ),
-                    child: Text(
+                  ),
+                  child: autenticacionControlador.cargando.value
+                    ? const SizedBox(
+                      height: 24,
+                      width: 24,
+                      child: CircularProgressIndicator(
+                        color: Colors.white,
+                        strokeWidth: 2,
+                      ),
+                    )
+                    : Text(
                       'iniciar_sesion_boton'.tr,
                       style: AppEstilosTexto.withColor(
                         AppEstilosTexto.buttonMedium,
-                        Colors.white,
+                      Colors.white,
                       ),
                     ),
                   ),
-                ),
+                )),
                 const SizedBox(height: 24),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -120,64 +127,6 @@ class IniciarSesionPantalla extends StatelessWidget {
                     ),
                   ],
                 ),
-
-                SizedBox(height: 70),
-                Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        'seleccionar_idioma'.tr,
-                        style: AppEstilosTexto.withColor(
-                          AppEstilosTexto.bodyMedium,
-                          isDark ? Colors.grey[400]! : Colors.grey[600]!,
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton<String>(
-                            value: idiomaCtrl.idiomaActual.value,
-                            icon: const Icon(Icons.arrow_drop_down, size: 40),
-                            onChanged: (String? nuevoCodigo) {
-                              if (nuevoCodigo != null) {
-                                idiomaCtrl.cambiarIdioma(nuevoCodigo);
-                              }
-                            },
-                            style: AppEstilosTexto.withColor(
-                              AppEstilosTexto.bodyLarge.copyWith(fontSize: 20),
-                              isDark ? Colors.white : Colors.black,
-                            ),
-                            items: idiomaCtrl.idiomas.map((idioma) {
-                              return DropdownMenuItem<String>(
-                                value: idioma['codigo'],
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      idioma['bandera'] as String,
-                                      style: const TextStyle(fontSize: 24),
-                                    ),
-                                    const SizedBox(width: 12),
-                                    Text(
-                                      idioma['nombre'] as String,
-                                      style: AppEstilosTexto.withColor(
-                                        AppEstilosTexto.bodyLarge.copyWith(fontSize: 18),
-                                        isDark ? Colors.white : Colors.black,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
               ],
             ),
           ),
@@ -187,8 +136,6 @@ class IniciarSesionPantalla extends StatelessWidget {
   }
 
   void _handleSignIn() async {
-    final AutenticacionControlador autenticacionControlador = Get.find<AutenticacionControlador>();
-
     if (_formKey.currentState!.validate()) {
       final email = _emailController.text.trim();
       final password = _passwordController.text.trim();

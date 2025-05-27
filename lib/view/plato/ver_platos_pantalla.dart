@@ -32,12 +32,21 @@ class _VerPlatosPantallaState extends State<VerPlatosPantalla> {
     final user = FirebaseAuth.instance.currentUser;
 
     if (user != null) {
-      final doc = await FirebaseFirestore.instance.collection('usuarios').doc(user.uid).get();
-      final data = doc.data();
-      if (data != null && data['idRol'] == '2') {
-        setState(() {
-          _esGerente = true;
-        });
+      final docUsuario = await FirebaseFirestore.instance.collection('usuarios').doc(user.uid).get();
+      final dataUsuario = docUsuario.data();
+
+      if (dataUsuario != null && dataUsuario['idRol'] == '2') {
+        final docRestaurante = await FirebaseFirestore.instance
+          .collection('restaurantes')
+          .doc(widget.idRestaurante)
+          .get();
+        final dataRestaurante = docRestaurante.data();
+
+        if (dataRestaurante != null && dataRestaurante['idGerente'] == user.uid) {
+          setState(() {
+            _esGerente = true;
+          });
+        }
       }
     }
 

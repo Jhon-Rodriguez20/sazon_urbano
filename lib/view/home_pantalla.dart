@@ -107,38 +107,44 @@ class _HomePantallaState extends State<HomePantalla> {
                       ),
                       Spacer(),
                       DropdownButtonHideUnderline(
-                        child: DropdownButton<String>(
-                          value: idiomaCtrl.idiomaActual.value,
-                          icon: const Icon(Icons.arrow_drop_down),
-                          onChanged: (String? nuevoCodigo) {
-                            if (nuevoCodigo != null) {
-                              idiomaCtrl.cambiarIdioma(nuevoCodigo);
-                            }
-                          },
-                          items: idiomaCtrl.idiomas.map((idioma) {
-                            return DropdownMenuItem<String>(
-                              value: idioma['codigo'],
-                              child: Row(
-                                children: [
-                                  Text(
-                                    idioma['bandera'] as String,
-                                    style: const TextStyle(fontSize: 20),
-                                  ),
-                                  SizedBox(width: 8),
-                                  Text(
-                                    idioma['nombre'] as String,
-                                    style: AppEstilosTexto.withAccesibilidad(
-                                      AppEstilosTexto.bodyMedium,
-                                      agrandar: accesibilidadCtrl.agrandarTexto.value,
-                                      espaciado: accesibilidadCtrl.espaciadoTexto.value,
-                                      color: isDark ? Colors.white : Colors.black,
+                        child: Builder(builder: (_) {
+                          final idiomaActual = idiomaCtrl.idiomaActual.value;
+                          final codigosDisponibles = idiomaCtrl.idiomas.map((e) => e['codigo']).toList();
+
+                          if (!codigosDisponibles.contains(idiomaActual)) {
+                            return const CircularProgressIndicator();
+                          }
+
+                          return DropdownButton<String>(
+                            value: idiomaActual,
+                            icon: const Icon(Icons.arrow_drop_down),
+                            onChanged: (String? nuevoCodigo) {
+                              if (nuevoCodigo != null) {
+                                idiomaCtrl.cambiarIdioma(nuevoCodigo);
+                              }
+                            },
+                            items: idiomaCtrl.idiomas.map((idioma) {
+                              return DropdownMenuItem<String>(
+                                value: idioma['codigo'],
+                                child: Row(
+                                  children: [
+                                    Text(idioma['bandera']!, style: const TextStyle(fontSize: 20)),
+                                    const SizedBox(width: 8),
+                                    Text(
+                                      idioma['nombre']!,
+                                      style: AppEstilosTexto.withAccesibilidad(
+                                        AppEstilosTexto.bodyMedium,
+                                        agrandar: accesibilidadCtrl.agrandarTexto.value,
+                                        espaciado: accesibilidadCtrl.espaciadoTexto.value,
+                                        color: isDark ? Colors.white : Colors.black,
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          }).toList(),
-                        ),
+                                  ],
+                                ),
+                              );
+                            }).toList(),
+                          );
+                        }),
                       ),
                     ],
                   ),
