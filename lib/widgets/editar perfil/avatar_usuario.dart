@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:http/http.dart' as http;
 
 class AvatarUsuario extends StatelessWidget {
   final double radius;
@@ -8,22 +9,32 @@ class AvatarUsuario extends StatelessWidget {
   const AvatarUsuario({super.key, this.radius = 20});
 
   String _obtenerIniciales(User user) {
-    final nombre = user.email ?? '';
-    if (nombre.trim().isEmpty) return 'US';
+    final email = user.email ?? '';
+    if (email.trim().isEmpty) return 'US';
 
-    final palabras = nombre.trim().split(' ');
-    if (palabras.length >= 2) {
-      return '${palabras[0][0]}${palabras[1][0]}'.toUpperCase();
+    final nombreSinDominio = email.split('@')[0];
+    if (nombreSinDominio.length >= 2) {
+      return nombreSinDominio.substring(0, 2).toUpperCase();
     } else {
-      return nombre.substring(0, 2).toUpperCase();
+      return nombreSinDominio.toUpperCase();
     }
   }
 
   Future<String?> _obtenerUrlImagen(String uid) async {
     final doc = await FirebaseFirestore.instance.collection('usuarios').doc(uid).get();
-    if (doc.exists && doc.data()?['urlImagen'] != null) {
-      return doc['urlImagen'];
+    final url = doc.data()?['urlImagen'];
+    if (url == null || url.isEmpty) return null;
+
+    try {
+      final response = await http.head(Uri.parse(url));
+      if (response.statusCode == 200) {
+        return url;
+      }
+
+    } catch (e) {
+      // Error al conectarse o imagen no encontrada
     }
+
     return null;
   }
 
@@ -51,7 +62,6 @@ class AvatarUsuario extends StatelessWidget {
         }
 
         final urlImagen = snapshot.data;
-
         if (urlImagen != null && urlImagen.isNotEmpty) {
           return CircleAvatar(
             radius: radius,
