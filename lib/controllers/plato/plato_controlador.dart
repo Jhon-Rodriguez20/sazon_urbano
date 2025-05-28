@@ -43,7 +43,7 @@ class PlatoControlador extends GetxController {
       );
 
       cargando.value = false;
-      SnackbarPersonalizado.mostrarExito('Plato creado con éxito');
+      SnackbarPersonalizado.mostrarExito('mensaje_plato_exito'.tr);
       Get.to(()=> VerPlatosPantalla(idRestaurante: idRestaurante,));
 
     } catch (e) {
@@ -55,7 +55,6 @@ class PlatoControlador extends GetxController {
           throw('Error al eliminar la imagen: $deleteError');
         }
       }
-      SnackbarPersonalizado.mostrarError('Error: ${e.toString()}');
     }
   }
 
