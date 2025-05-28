@@ -25,7 +25,7 @@ class CrearGerenteControlador extends GetxController {
       final existeUsuario = await _usuarioRepositorio.existeUsuarioConEmail(email);
       if (existeUsuario) {
         cargando.value = false;
-        SnackbarPersonalizado.mostrarError('El correo ya está registrado.');
+        SnackbarPersonalizado.mostrarError('correo_ya_registrado'.tr);
         return;
       }
 
@@ -37,7 +37,6 @@ class CrearGerenteControlador extends GetxController {
       final uid = userCredential.user?.uid;
       if (uid == null) {
         cargando.value = false;
-        SnackbarPersonalizado.mostrarError('Error: UID no válido.');
         return;
       }
 
@@ -54,7 +53,7 @@ class CrearGerenteControlador extends GetxController {
       );
 
       cargando.value = false;
-      SnackbarPersonalizado.mostrarExito('Gerente creado con éxito');
+      SnackbarPersonalizado.mostrarExito('mensaje_gerente_exito'.tr);
 
     } on FirebaseAuthException catch (e) {
       cargando.value = false;
@@ -67,7 +66,6 @@ class CrearGerenteControlador extends GetxController {
       SnackbarPersonalizado.mostrarError(mensaje);
     } catch (e) {
       cargando.value = false;
-      SnackbarPersonalizado.mostrarError('Error inesperado: ${e.toString()}');
     }
   }
 }

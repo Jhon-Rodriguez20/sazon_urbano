@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 class SnackbarPersonalizado {
   static void mostrarExito(String mensaje) {
     Get.snackbar(
-      '¡Éxito!',
+      'exito'.tr,
       mensaje,
       snackPosition: SnackPosition.BOTTOM,
       backgroundColor: Colors.green,
@@ -19,7 +19,7 @@ class SnackbarPersonalizado {
 
   static void mostrarError(String mensaje) {
     Get.snackbar(
-      'Error',
+      'error'.tr,
       mensaje,
       snackPosition: SnackPosition.BOTTOM,
       backgroundColor: Colors.red,

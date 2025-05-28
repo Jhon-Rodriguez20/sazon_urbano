@@ -25,7 +25,7 @@ class UsuarioControlador extends GetxController {
       final existeUsuario = await _usuarioRepositorio.existeUsuarioConEmail(email);
       if (existeUsuario) {
         cargando.value = false;
-        SnackbarPersonalizado.mostrarError('El correo ya está registrado.');
+        SnackbarPersonalizado.mostrarError('correo_ya_registrado'.tr);
         return;
       }
 
@@ -37,7 +37,6 @@ class UsuarioControlador extends GetxController {
       final uid = userCredential.user?.uid;
       if (uid == null) {
         cargando.value = false;
-        SnackbarPersonalizado.mostrarError('Error: UID no válido.');
         return;
       }
 
@@ -54,7 +53,7 @@ class UsuarioControlador extends GetxController {
       );
 
       cargando.value = false;
-      SnackbarPersonalizado.mostrarExito('Cuenta creada correctamente');
+      SnackbarPersonalizado.mostrarExito('mensaje_cuenta_exito'.tr);
       Get.offAll(() => IniciarSesionPantalla());
 
     } on FirebaseAuthException catch (e) {
@@ -68,7 +67,6 @@ class UsuarioControlador extends GetxController {
       SnackbarPersonalizado.mostrarError(mensaje);
     } catch (e) {
       cargando.value = false;
-      SnackbarPersonalizado.mostrarError('Error inesperado: ${e.toString()}');
     }
   }
 }

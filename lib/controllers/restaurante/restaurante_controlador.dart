@@ -23,7 +23,7 @@ class RestauranteControlador extends GetxController {
     final String? idGerente = FirebaseAuth.instance.currentUser?.uid;
 
     if (idGerente == null) {
-      SnackbarPersonalizado.mostrarError('Error: Usuario no autenticado');
+      SnackbarPersonalizado.mostrarError('error_usuario_no_autenticado'.tr);
       return;
     }
     String? urlImagen;
@@ -49,7 +49,7 @@ class RestauranteControlador extends GetxController {
       );
 
       cargando.value = false;
-      SnackbarPersonalizado.mostrarExito('Restaurante creado con éxito');
+      SnackbarPersonalizado.mostrarExito('mensaje_restaurante_exito'.tr);
       Get.to(()=> MisRestaurantesPantalla());
 
     } catch (e) {
