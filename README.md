@@ -33,3 +33,9 @@
 * Si reciben advertencias de seguridad, es normal cuando se instalan APKs fuera de Google Play.
 * Asegúrate de descargar el APK solo desde fuentes confiables (como tu repositorio oficial en GitHub).
 * Puedes eliminar la APK después de instalar para liberar espacio.
+
+---
+
+## Desarrollador Frontend y Backend
+
+### Jhon Rodríguez
