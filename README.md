@@ -1,8 +1,10 @@
-# Cómo instalar la aplicación Bocados\_de\_Tradicion en Android
+# Bocados de Tradición
+
+# Cómo instalar la aplicación Bocados de Tradición en Android
 
 ## 1. Descargar el APK
 
-* Ve a la página del [release en GitHub de Bocados\_de\_Tradicion](https://github.com/Jhon-Rodriguez20/sazon_urbano/releases/tag/v1.0.0)
+* Ve a la página del [release en GitHub de Bocados de Tradicion](https://github.com/Jhon-Rodriguez20/sazon_urbano/releases/tag/v1.0.0)
 * Busca el release más reciente y descarga el archivo `.apk` adjunto (ejemplo: `app-release.apk`).
 
 ## 2. Preparar el dispositivo Android
@@ -31,3 +33,9 @@
 * Si reciben advertencias de seguridad, es normal cuando se instalan APKs fuera de Google Play.
 * Asegúrate de descargar el APK solo desde fuentes confiables (como tu repositorio oficial en GitHub).
 * Puedes eliminar la APK después de instalar para liberar espacio.
+
+---
+
+## Desarrollador Frontend y Backend
+
+### Jhon Rodríguez
