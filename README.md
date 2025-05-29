@@ -38,4 +38,4 @@
 
 ## Desarrollador Frontend y Backend
 
-### Jhon Rodríguez
+### Jhon Rodríguez.
