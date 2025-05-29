@@ -1,16 +1,33 @@
-# Bocados_de_Tradicion
+# Cómo instalar la aplicación Bocados\_de\_Tradicion en Android
 
-A new Flutter project.
+## 1. Descargar el APK
 
-## Getting Started
+* Ve a la página del [release en GitHub de Bocados\_de\_Tradicion](https://github.com/Jhon-Rodriguez20/sazon_urbano/releases/tag/v1.0.0)
+* Busca el release más reciente y descarga el archivo `.apk` adjunto (ejemplo: `app-release.apk`).
 
-This project is a starting point for a Flutter application.
+## 2. Preparar el dispositivo Android
 
-A few resources to get you started if this is your first Flutter project:
+* **Permitir instalaciones desde fuentes desconocidas:**
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+  * Abre la app de **Configuración**.
+  * Ve a **Seguridad** o **Aplicaciones** (depende del dispositivo).
+  * Activa la opción **Instalar aplicaciones desconocidas** o **Permitir instalar desde fuentes externas** para la app desde donde vas a abrir el APK (navegador o gestor de archivos).
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 3. Instalar la aplicación
+
+* Abre el archivo `.apk` descargado desde el explorador de archivos o la barra de notificaciones.
+* Sigue las instrucciones para instalar.
+* Una vez instalado, podrás abrir la aplicación desde el menú de apps.
+
+## 4. ¡Listo para usar!
+
+* La app ya está instalada en el dispositivo.
+* Puedes usarla sin necesidad de acceder a Google Play.
+
+---
+
+### Notas para los usuarios
+
+* Si reciben advertencias de seguridad, es normal cuando se instalan APKs fuera de Google Play.
+* Asegúrate de descargar el APK solo desde fuentes confiables (como tu repositorio oficial en GitHub).
+* Puedes eliminar la APK después de instalar para liberar espacio.
