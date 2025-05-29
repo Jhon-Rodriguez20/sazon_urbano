@@ -50,3 +50,5 @@ app.*.symbols
 
 # Obfuscation related
 app.*.map.json
+
+.env
